@@ -1,10 +1,11 @@
+import LandingText from "../components/LandingText";
 import NavBar from "../components/NavBar";
 
 function LandingPage() {
   return (
     <>
       <NavBar />
-      <div>Landing Page</div>
+      <LandingText/>
     </>
   );
 }

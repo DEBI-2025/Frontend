@@ -1,9 +1,12 @@
+import NavBar from "../components/NavBar";
+
 function Tips() {
-    return (
-        <div>
-            Tips
-        </div>
-    )
+  return (
+    <div>
+      <NavBar />
+      Tips
+    </div>
+  );
 }
 
-export default Tips
+export default Tips;

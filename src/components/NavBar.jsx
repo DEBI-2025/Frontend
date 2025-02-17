@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 function NavBar() {
@@ -34,7 +34,9 @@ function NavBar() {
           </NavLinkStyled>
         </li>
       </Ul>
-      <Button to="/signup">Sign Up</Button>
+      <Link to="/signup">
+        <Button>Sign Up</Button>
+      </Link>
     </Nav>
   );
 }
@@ -73,7 +75,6 @@ const Ul = styled.ul`
   list-style: none;
   font-size: 1.4rem;
 `;
-
 
 const NavLinkStyled = styled(NavLink)`
   color: #c3a2f3;

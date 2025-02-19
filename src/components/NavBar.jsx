@@ -1,13 +1,17 @@
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
+import robot from "../images/Robot.png";
 function NavBar() {
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
+  const navigate = useNavigate();
 
   return (
     <Nav>
-      <Title to="/">Inner views</Title>
+      <NavTitle to="/">
+        <NavImg src={robot} />
+        <NavTxt>Inner views</NavTxt>
+      </NavTitle>
       <Ul>
         <li>
           <NavLinkStyled
@@ -34,37 +38,50 @@ function NavBar() {
           </NavLinkStyled>
         </li>
       </Ul>
-      <Link to="/signup">
-        <Button>Sign Up</Button>
-      </Link>
+      <SignButton onClick={() => navigate("/login")}>Log In</SignButton>
     </Nav>
   );
 }
 
 export default NavBar;
 
+/* margin: 0.1rem 0.1rem; */
 const Nav = styled.nav`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  gap: 20rem;
-  /* margin: 0.1rem 0.1rem; */
-  margin-bottom: 1rem;
+  gap: 15rem;
+  height: 2.8rem;
   padding: 0.7rem;
-  border: 0.2rem solid transparent;
-  border-image: linear-gradient(to right, #6a0dad, #c3a2f3, #f7c5cc) 1;
-  border-radius: 0 0 0.7rem 0.7rem;
+  border-radius: 0 0 1.7rem 1.7rem;
+  border: 3px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+    linear-gradient(to right, #6a0dad, #af73cf, #f7c5cc) border-box;
+
 `;
 
-const Title = styled(NavLink)`
-  text-transform: uppercase;
+const NavTitle = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   text-decoration: none;
-  font-size: 1.2rem;
+`;
+
+const NavImg = styled.img`
+  width: 25px;
+  padding-top: 0.35rem;
+`;
+
+const NavTxt = styled.p`
+  text-transform: uppercase;
+  font-size: 1.6rem;
   font-weight: 600;
-  background: linear-gradient(to right, #6a0dad, #c3a2f3, #f7c5cc);
+  font-family: antonio;
+  background: linear-gradient(to right, #6a0dad 20%, #af73cf, #f7c5cc);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+  display: inline-block;
 `;
 
 const Ul = styled.ul`
@@ -77,11 +94,11 @@ const Ul = styled.ul`
 `;
 
 const NavLinkStyled = styled(NavLink)`
-  color: #c3a2f3;
+  color: #af73cf;
   text-decoration: none;
   font-weight: 600;
   display: inline-block;
-  transition: transform 0.1s ease-in-out, color 0.1s ease-in-out;
+  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
 
   &:hover,
   &.active {
@@ -91,20 +108,26 @@ const NavLinkStyled = styled(NavLink)`
   }
 `;
 
-const Button = styled.button`
-  padding: 0.7rem 1rem;
+const SignButton = styled.button`
+  /* font-family: Literata; */
+  /* padding: 0.7rem 1.4rem; */
+  width: 6.5rem;
+  height: 2.5rem;
   font-size: 1.1rem;
   font-weight: 600;
-  background-color: transparent;
-  color: #c3a2f3;
-  /* border: none; */
-  border-radius: 50rem;
+  color: #af73cf;
   cursor: pointer;
   transition: background-color 0.2s, transform 0.2s;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(white, white) padding-box,
+    linear-gradient(to right, #6a0dad, #af73cf, #f7c5cc) border-box;
+  border: 3px solid transparent;
+  
 
   &:hover {
-    background-color: #6a0dad;
+    background: #6a0dad;
     color: white;
-    transform: scale(1.1);
+    transform: scale(1.07);
   }
 `;

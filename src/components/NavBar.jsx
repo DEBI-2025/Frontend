@@ -45,7 +45,7 @@ function NavBar() {
 
 export default NavBar;
 
-/* margin: 0.1rem 0.1rem; */
+
 const Nav = styled.nav`
   display: flex;
   justify-content: space-around;
@@ -110,7 +110,6 @@ const NavLinkStyled = styled(NavLink)`
 
 const SignButton = styled.button`
   /* font-family: Literata; */
-  /* padding: 0.7rem 1.4rem; */
   width: 6.5rem;
   height: 2.5rem;
   font-size: 1.1rem;

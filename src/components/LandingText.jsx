@@ -1,13 +1,19 @@
 import styled from "styled-components";
 import landingImg from "../images/Landing.png";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 function LandingText() {
   const navigate = useNavigate();
 
   return (
     <Wrapper>
-      <LeftSide>
+      <LeftSide
+        as={motion.div}
+        initial={{ y: 50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
         <LeftTitle>Inner Views</LeftTitle>
         <LeftText>
           AI-Powered Job Interview Simulator helps job seekers improve their
@@ -20,7 +26,12 @@ function LandingText() {
           Start Practicing
         </LeftButton>
       </LeftSide>
-      <RightSide>
+      <RightSide
+        as={motion.div}
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
         <Image src={landingImg} alt="landing image" />
       </RightSide>
     </Wrapper>
@@ -31,6 +42,7 @@ export default LandingText;
 const Wrapper = styled.div`
   display: flex;
   height: 89%;
+  overflow: hidden;
 `;
 
 const LeftSide = styled.div`
@@ -45,8 +57,8 @@ const LeftTitle = styled.h1`
   font-family: Roboto Slab;
   letter-spacing: 10px;
   font-size: 3.5rem;
-  margin-bottom: 2rem ;
-  background: linear-gradient(to right, #6a0dad , #AF73CF , #F7C5CC 70%);
+  margin-bottom: 2rem;
+  background: linear-gradient(to right, #6a0dad, #af73cf, #f7c5cc 70%);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -70,16 +82,16 @@ const LeftButton = styled.button`
   height: 3.2rem;
   border-radius: 50px;
   cursor: pointer;
-  background: linear-gradient(to right, #6a0dad, #AF73CF, #f7c5cc);
+  background: linear-gradient(to right, #6a0dad, #af73cf, #f7c5cc);
   border: none;
   color: white;
   font-size: 1.5rem;
   letter-spacing: 1px;
-  transition:  transform 0.2s;
+  transition: transform 0.2s;
 
-&:hover {
-  transform: scale(1.03);
-}
+  &:hover {
+    transform: scale(1.03);
+  }
 `;
 
 const RightSide = styled.div`

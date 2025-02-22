@@ -2,7 +2,8 @@ import { style } from "framer-motion/client";
 import styled from "styled-components";
 import robot from "../images/Robot.png";
 import { NavLink} from "react-router-dom";
-import { Email, Lock } from "@mui/icons-material";
+import {Person, Phone , Email, Lock ,CalendarToday } from "@mui/icons-material";
+import { motion } from "framer-motion";
 
 
 
@@ -10,7 +11,12 @@ import { Email, Lock } from "@mui/icons-material";
 
 function SignUp() {
     return (
-       <Container>
+       <Container
+       as={motion.div}
+        initial={{ y: 50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1, ease: "easeOut" }}>
+        
         <LeftPanel>
             <Title>
                 Hello Friend!
@@ -18,7 +24,7 @@ function SignUp() {
             <SubTitle>
             Please Provide The Information to <br />Register Your Account
                 </SubTitle>
-                <LinkText>Already Have an Account? Sign In</LinkText>
+                <LinkText>Already Have an Account</LinkText>
                 <Button type= "signup" >Sign In</Button>
       
 
@@ -31,22 +37,58 @@ function SignUp() {
       </NavTitle>
         </Navwrapper>
         
-      <Title>Sign In To Your Account</Title>
+      <Title>Register with us !</Title>
+      <RowWrapper>
       <InputWrapper>
       <Icon>
-        <Email/>
+        <Person fontSize="small"/>
+      </Icon>
+      <InputField
+       type="text" placeholder="First Name" />
+      </InputWrapper>
+      
+      <InputWrapper>
+      <Icon>
+      <Person fontSize="small"/>
+      </Icon>
+        <InputField type="text" placeholder="last Name" />
+        </InputWrapper>
+      </RowWrapper>
+      <InputWrapper>
+      <Icon>
+        <Email fontSize="small"/>
       </Icon>
       <InputField
        type="email" placeholder="Email Address" />
       </InputWrapper>
       <InputWrapper>
       <Icon>
-      <Lock/>
+        <Phone fontSize="small"/>
+      </Icon>
+      <InputField
+       type="tel" placeholder="Phone Number" />
+      </InputWrapper>
+      <InputWrapper>
+      <Icon>
+        <CalendarToday  fontSize="small"/>
+      </Icon>
+      <InputField
+       type="date" style={{ color: "gray" }} />
+      </InputWrapper>
+      <InputWrapper>
+      <Icon>
+      <Lock fontSize="small"/>
       </Icon>
         <InputField type="password" placeholder="Password" />
         </InputWrapper>
+        <InputWrapper>
+      <Icon>
+      <Lock fontSize="small"/>
+      </Icon>
+        <InputField type="password" placeholder="Confirm Password " />
+        </InputWrapper>
         <LinkText type="forgot">Forgot Password?</LinkText>
-        <Button>Sign In</Button>
+        <Button>Sign up</Button>
       
         </RightPanel>
        </Container>
@@ -80,6 +122,7 @@ const RightPanel = styled.div`
 `;
 const Title = styled.h1`
   font-size: 3rem;
+  marigin-top:1rem;
   `
   ;
   const SubTitle = styled.p`
@@ -93,9 +136,8 @@ const Title = styled.h1`
   
   `;
   const LinkText =styled.p`
-  font-size:${({type})=>(type === "forgot"?"1.2rem" :"0.9rem")};
-  cursor:pointer;
-  margin-top:6rem;
+  font-size:1rem;
+  margin-top: ${({type})=>(type === "forgot"?"1rem":"6.5rem")};
   color:${({type})=>(type === "forgot"? "#0D1B2A80":"white")};
   `;
   const Button = styled.button`
@@ -106,7 +148,6 @@ font-family: Literata;
   color: white;
   border: 1px solid white;
   border-radius: 25px;
-  margin-top: 15px;
   font-weight: 600;
 `;
 const NavTitle = styled(NavLink)`
@@ -132,8 +173,15 @@ const NavTxt = styled.p`
   color: transparent;
   display: inline-block;
 `;
+const RowWrapper = styled.div`
+  display: flex;
+  gap: 30px; 
+  width:70%;
+`;
 const InputField = styled.input`
-  width: 80%;
+color: gray;
+  justify-content: space-between;
+  width:100%;
   border:none;
   margin-left:10px;
   &:focus {
@@ -145,9 +193,8 @@ const InputField = styled.input`
 `;
 const InputWrapper = styled.div`
 display:flex;
- width: 80%;
+width:70%;
   padding: 8px;
-  margin: 10px 0;
   border: 1px solid #d8b4fe;
   border-radius: 25px;
   outline: none;
@@ -155,11 +202,12 @@ display:flex;
   margin-top:1rem;
 `;
 const Icon = styled.div`
- 
   left: 10px;
   color: gray;
   display: flex;
   align-items: center;
+  font-size:10px;
+  
 `;
 const Navwrapper = styled.div`
  position: absolute;

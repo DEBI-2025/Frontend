@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import LandingText from "../components/LandingText";
 import NavBar from "../components/NavBar";
+import Features from "../components/Features";
 
 function LandingPage() {
   return (
     <AppContainer>
       <NavBar />
       <LandingText />
+      <Features />
     </AppContainer>
   );
 }

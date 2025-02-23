@@ -1,9 +1,162 @@
+import styled from "styled-components";
+import { NavLink} from "react-router-dom";
+import { Email, Lock } from "@mui/icons-material";
+
 function SignIn() {
     return (
-        <div>
-            SignIn
-        </div>
+      <Container>
+        <LeftPanel>
+            <Title>
+                Hello Friend!
+            </Title>
+            <SubTitle>
+            Please Provide The Information to SignIn
+                </SubTitle>
+                <LinkText>Don't Have an Account?</LinkText>
+                <Button type= "signup" >Sign Up</Button>
+        </LeftPanel>
+        <RightPanel>
+        <NavWrapper>
+        <NavTitle to="/">
+        <Logo>InnerView</Logo>
+      </NavTitle>
+        </NavWrapper>
+      <Title>Sign In To Your Account</Title>
+      <InputWrapper>
+      <Icon>
+        <Email/>
+      </Icon>
+      <InputField
+      type="email" placeholder="Email Address" />
+      </InputWrapper>
+      <InputWrapper>
+      <Icon>
+      <Lock/>
+      </Icon>
+        <InputField type="password" placeholder="Password" />
+        </InputWrapper>
+        <LinkText type="forgot">Forgot Password?</LinkText>
+        <Button>Sign In</Button>
+        </RightPanel>
+      </Container>
     )
 }
 
 export default SignIn
+
+const Container = styled.div`
+  display:flex;
+  height:100vh
+`;
+
+const LeftPanel = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom right,  var(--color-primary), var(--color-secondary));
+  color: white;
+  
+  cursor: pointer;
+`;
+
+const Logo = styled.div`
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-right: 2rem;
+  color: black;
+
+  @media (max-width: 768px) {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+`;
+
+const RightPanel = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  padding: 2rem;
+`;
+
+const Title = styled.h1`
+  font-size: 3rem;
+  padding: 1rem;
+  `;
+
+  const SubTitle = styled.p`
+  font-size:0.9rem;
+  font-weight: 300;
+  color: var(--color-light);
+  `;
+
+const LinkText =styled.p`
+  font-size:${({type})=>(type === "forgot"?"1.2rem" :"0.9rem")};
+  cursor:pointer;
+  margin-top:6rem;
+  color:${({type})=>(type === "forgot"? "#0D1B2A80":"white")};
+  `;
+
+const Button = styled.button`
+  padding: 0.5rem 3rem;
+  background: ${({type})=>(type === "signup"? "none":"linear-gradient(to right,  var(--color-primary), var(--color-secondary))")};
+  color: white;
+  border: 1px solid white;
+  border-radius: 20px;
+  margin-top: 15px;
+  font-weight: 500;
+  transition: transform 100ms ease-in-out;
+  &:hover {
+    transform: scale(1.04);
+    cursor: pointer;
+  }
+`;
+
+const NavTitle = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  
+`;
+
+const InputField = styled.input`
+  width: 80%;
+  border:none;
+  margin-left:10px;
+  &:focus {
+      outline: none;
+  }
+`;
+
+const InputWrapper = styled.div`
+  display:flex;
+  width: 80%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid var(--color-secondary);
+  border-radius: 25px;
+  outline: none;
+  text-indent: 15px;
+  margin-top:1rem;
+`;
+
+const Icon = styled.div`
+  color: var(--color-secondary);
+  display: flex;
+  align-items: center;
+`;
+
+const NavWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%; 
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 5rem; 
+`

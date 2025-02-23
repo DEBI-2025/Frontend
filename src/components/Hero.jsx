@@ -3,7 +3,7 @@ import heroImg from '../assets/hero.png';
 import backgroundSvg from '../assets/background.svg'; 
 import { useNavigate } from "react-router-dom";
 
-function LandingText() {
+function Hero() {
   const navigate = useNavigate();
 
   return (
@@ -25,7 +25,7 @@ function LandingText() {
   );
 }
 
-export default LandingText;
+export default Hero;
 
 const HeroSection = styled.section`
   text-align: center;

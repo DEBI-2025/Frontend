@@ -2,6 +2,7 @@ import styled from "styled-components";
 import LandingText from "../components/LandingText";
 import NavBar from "../components/NavBar";
 import Features from "../components/Features";
+import HowItWorks from "../components/HowItWorks";
 
 function LandingPage() {
   return (
@@ -9,6 +10,7 @@ function LandingPage() {
       <NavBar />
       <LandingText />
       <Features />
+      <HowItWorks />
     </AppContainer>
   );
 }

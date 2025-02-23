@@ -4,15 +4,17 @@ import NavBar from "../components/NavBar";
 
 function LandingPage() {
   return (
-    <Wrapper>
+    <AppContainer>
       <NavBar />
       <LandingText />
-    </Wrapper>
+    </AppContainer>
   );
 }
 
 export default LandingPage;
 
-const Wrapper = styled.div`
-  height: 100vh;
+const AppContainer = styled.div`
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
 `;

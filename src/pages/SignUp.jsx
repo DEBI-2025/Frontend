@@ -1,43 +1,33 @@
-import { style } from "framer-motion/client";
 import styled from "styled-components";
-import robot from "../images/Robot.png";
 import { NavLink} from "react-router-dom";
 import { Email, Lock } from "@mui/icons-material";
 
-
-
-
-
 function SignUp() {
     return (
-       <Container>
+      <Container>
         <LeftPanel>
             <Title>
                 Hello Friend!
             </Title>
             <SubTitle>
-            Please Provide The Information to <br />Register Your Account
+            Please Provide The Information to SignIn
                 </SubTitle>
-                <LinkText>Already Have an Account? Sign In</LinkText>
-                <Button type= "signup" >Sign In</Button>
-      
-
+                <LinkText>Don't Have an Account?</LinkText>
+                <Button type= "signup" >Sign Up</Button>
         </LeftPanel>
         <RightPanel>
-        <Navwrapper>
+        <NavWrapper>
         <NavTitle to="/">
-        <NavImg src={robot} />
-        <NavTxt>Inner views</NavTxt>
+        <Logo>InnerView</Logo>
       </NavTitle>
-        </Navwrapper>
-        
+        </NavWrapper>
       <Title>Sign In To Your Account</Title>
       <InputWrapper>
       <Icon>
         <Email/>
       </Icon>
       <InputField
-       type="email" placeholder="Email Address" />
+      type="email" placeholder="Email Address" />
       </InputWrapper>
       <InputWrapper>
       <Icon>
@@ -47,28 +37,42 @@ function SignUp() {
         </InputWrapper>
         <LinkText type="forgot">Forgot Password?</LinkText>
         <Button>Sign In</Button>
-      
         </RightPanel>
-       </Container>
+      </Container>
     )
 }
 
 export default SignUp
+
 const Container = styled.div`
-display:flex;
-height:100vh`
-;
+  display:flex;
+  height:100vh
+`;
+
 const LeftPanel = styled.div`
-flex: 1;
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to bottom right,  #af73cf, #f7c5cc);
+  background: linear-gradient(to bottom right,  var(--color-primary), var(--color-secondary));
   color: white;
   
   cursor: pointer;
 `;
+
+const Logo = styled.div`
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-right: 2rem;
+  color: black;
+
+  @media (max-width: 768px) {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+`;
+
 const RightPanel = styled.div`
   flex: 1;
   display: flex;
@@ -78,37 +82,40 @@ const RightPanel = styled.div`
   background: white;
   padding: 2rem;
 `;
+
 const Title = styled.h1`
   font-size: 3rem;
-  `
-  ;
-  const SubTitle = styled.p`
-    font-family: Literata; 
-  /* font-family: Roboto Slab; */
-  /* font-family: antonio; */
-  margin-top:-10px;
-  font-size:19px;
-  paddig-right: 2rem;
-   letter-spacing: 1px;
-  
+  padding: 1rem;
   `;
-  const LinkText =styled.p`
+
+  const SubTitle = styled.p`
+  font-size:0.9rem;
+  font-weight: 300;
+  color: var(--color-light);
+  `;
+
+const LinkText =styled.p`
   font-size:${({type})=>(type === "forgot"?"1.2rem" :"0.9rem")};
   cursor:pointer;
   margin-top:6rem;
   color:${({type})=>(type === "forgot"? "#0D1B2A80":"white")};
   `;
-  const Button = styled.button`
-  width: 80%;
-font-family: Literata; 
-  padding: 12px;
-  background: ${({type})=>(type === "signup"? "none":"linear-gradient(to right, #6a0dad  , #af73cf , #f7c5cc )")};
+
+const Button = styled.button`
+  padding: 0.5rem 3rem;
+  background: ${({type})=>(type === "signup"? "none":"linear-gradient(to right,  var(--color-primary), var(--color-secondary))")};
   color: white;
   border: 1px solid white;
-  border-radius: 25px;
+  border-radius: 20px;
   margin-top: 15px;
-  font-weight: 600;
+  font-weight: 500;
+  transition: transform 100ms ease-in-out;
+  &:hover {
+    transform: scale(1.04);
+    cursor: pointer;
+  }
 `;
+
 const NavTitle = styled(NavLink)`
   display: flex;
   align-items: center;
@@ -116,57 +123,40 @@ const NavTitle = styled(NavLink)`
   text-decoration: none;
   
 `;
-const NavImg = styled.img`
-  width: 25px;
-  padding-top: 0.35rem;
-`;
 
-const NavTxt = styled.p`
-  text-transform: uppercase;
-  font-size: 1rem;
-  font-weight: 600;
-  font-family: antonio;
-  background: linear-gradient(to right, #6a0dad 20%, #af73cf, #f7c5cc);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  display: inline-block;
-`;
 const InputField = styled.input`
   width: 80%;
   border:none;
   margin-left:10px;
   &:focus {
-       outline: none;
+      outline: none;
   }
-       
-  
-
 `;
+
 const InputWrapper = styled.div`
-display:flex;
- width: 80%;
+  display:flex;
+  width: 80%;
   padding: 8px;
   margin: 10px 0;
-  border: 1px solid #d8b4fe;
+  border: 1px solid var(--color-secondary);
   border-radius: 25px;
   outline: none;
   text-indent: 15px;
   margin-top:1rem;
 `;
+
 const Icon = styled.div`
- 
-  left: 10px;
-  color: gray;
+  color: var(--color-secondary);
   display: flex;
   align-items: center;
 `;
-const Navwrapper = styled.div`
- position: absolute;
- top: 0;
+
+const NavWrapper = styled.div`
+  position: absolute;
+  top: 0;
   right: 0;
   width: 100%; 
- display: flex;
+  display: flex;
   justify-content: flex-end;
-   padding: 1rem 5rem; 
+  padding: 1rem 5rem; 
 `

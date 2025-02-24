@@ -41,7 +41,7 @@ function LandingText() {
 export default LandingText;
 const Wrapper = styled.div`
   display: flex;
-  height: 89%;
+  height: 90%;
   overflow: hidden;
 `;
 

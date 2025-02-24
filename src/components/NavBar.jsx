@@ -8,35 +8,35 @@ function NavBar() {
 
   return (
     <Nav>
-      <NavTitle to="/">
+      <NavTitle>
         <NavImg src={robot} />
         <NavTxt>Inner views</NavTxt>
       </NavTitle>
       <Ul>
-        <li>
+        <Li>
           <NavLinkStyled
-            to="/home"
-            className={isActive("/home") ? "active" : ""}
+            to="/"
+            className={isActive("/") ? "active" : ""}
           >
             Home
           </NavLinkStyled>
-        </li>
-        <li>
+        </Li>
+        <Li>
           <NavLinkStyled
             to="/quiz"
             className={isActive("/quiz") ? "active" : ""}
           >
             Quiz
           </NavLinkStyled>
-        </li>
-        <li>
+        </Li>
+        <Li>
           <NavLinkStyled
             to="/tips"
             className={isActive("/tips") ? "active" : ""}
           >
             Tips
           </NavLinkStyled>
-        </li>
+        </Li>
       </Ul>
       <SignButton onClick={() => navigate("/login")}>Log In</SignButton>
     </Nav>
@@ -60,11 +60,11 @@ const Nav = styled.nav`
 
 `;
 
-const NavTitle = styled(NavLink)`
+const NavTitle = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  text-decoration: none;
+  cursor: default;
 `;
 
 const NavImg = styled.img`
@@ -93,6 +93,11 @@ const Ul = styled.ul`
   font-size: 1.4rem;
 `;
 
+const Li = styled.li`
+/* padding-bottom: 30px; */
+text-underline-offset: 3px;
+`;
+
 const NavLinkStyled = styled(NavLink)`
   color: #af73cf;
   text-decoration: none;
@@ -117,7 +122,6 @@ const SignButton = styled.button`
   color: #af73cf;
   cursor: pointer;
   transition: background-color 0.2s, transform 0.2s;
-  border: none;
   border-radius: 50px;
   background: linear-gradient(white, white) padding-box,
     linear-gradient(to right, #6a0dad, #af73cf, #f7c5cc) border-box;

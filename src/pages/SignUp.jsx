@@ -1,6 +1,6 @@
 import { style } from "framer-motion/client";
 import styled from "styled-components";
-import robot from "../images/Robot.png";
+import robot from "../assets/Robot.png";
 import { NavLink} from "react-router-dom";
 import { Email, Lock } from "@mui/icons-material";
 

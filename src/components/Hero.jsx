@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import landingImg from "../images/Landing.png";
+import landingImg from "../assets/Landing.png";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
-function LandingText() {
+function Hero() {
   const navigate = useNavigate();
 
   return (
@@ -14,7 +14,7 @@ function LandingText() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, ease: "easeOut" }}
       >
-        <LeftTitle>Inner Views</LeftTitle>
+        <LeftTitle>InnerView</LeftTitle>
         <LeftText>
           AI-Powered Job Interview Simulator helps job seekers improve their
           interview skills through realistic simulations, AI-driven feedback,
@@ -38,10 +38,11 @@ function LandingText() {
   );
 }
 
-export default LandingText;
+export default Hero;
+
 const Wrapper = styled.div`
   display: flex;
-  height: 89%;
+  height: 80%;
   overflow: hidden;
 `;
 
@@ -50,14 +51,15 @@ const LeftSide = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 8rem 0 5rem;
+  padding: 0 8rem 0 6rem;
 `;
 
 const LeftTitle = styled.h1`
-  font-family: Roboto Slab;
-  letter-spacing: 10px;
-  font-size: 3.5rem;
-  margin-bottom: 2rem;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 6px;
+  font-weight: 800;
+  font-size: 54px;
+  margin-bottom: 0.5rem;
   background: linear-gradient(to right, #6a0dad, #af73cf, #f7c5cc 70%);
   background-clip: text;
   -webkit-background-clip: text;
@@ -66,29 +68,27 @@ const LeftTitle = styled.h1`
 `;
 
 const LeftText = styled.p`
-  /* font-family: Literata; */
-  /* font-family: Roboto Slab; */
-  /* font-family: antonio; */
-
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
   font-size: 20px;
-  line-height: 30px;
-  margin-bottom: 3.5rem;
+  color: #333;
+  // line-height: 30px;
+  margin-bottom: 2rem;
 `;
 
 const LeftButton = styled.button`
-  width: 40rem;
-  font-family: Roboto Slab;
+  width: 14rem;
+  font-family: 'Poppins', sans-serif;
   font-weight: 500;
   height: 3.2rem;
-  border-radius: 50px;
+  border-radius: 45px;
   cursor: pointer;
-  background: linear-gradient(to right, #6a0dad, #af73cf, #f7c5cc);
+  background: linear-gradient(to right, var(--primary), var(--secondary), var(--tertiary));
   border: none;
   color: white;
-  font-size: 1.5rem;
-  letter-spacing: 1px;
+  font-size: 18px;
+  // letter-spacing: 0.5px;
   transition: transform 0.2s;
-
   &:hover {
     transform: scale(1.03);
   }
@@ -102,5 +102,5 @@ const RightSide = styled.div`
 `;
 
 const Image = styled.img`
-  width: 30rem;
+  width: 32rem;
 `;

@@ -1,21 +1,20 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./App.css";
-import LandingPage from "./pages/LandingPage";
+import GlobalStyle from './globalStyles';
+import Home from "./pages/Home";
 import PageNotFound from "./pages/PageNotFound";
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/SignUp";
-import Home from "./pages/Home";
 import Quiz from "./pages/Quiz";
 import Tips from "./pages/Tips";
 
 function App() {
   return (
     <BrowserRouter>
+      <GlobalStyle />
       <Routes>
-        <Route path="/" element={<LandingPage />} />
         <Route path="login" element={<LogIn />} />
         <Route path="signup" element={<SignUp />} />
-        <Route path="home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="quiz" element={<Quiz />} />
         <Route path="tips" element={<Tips />} />
         <Route path="*" element={<PageNotFound />} />

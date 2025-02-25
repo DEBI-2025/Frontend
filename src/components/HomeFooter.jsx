@@ -45,4 +45,6 @@ const FooterTitle = styled.p`
 
 const FooterDescription = styled.p`
   font-size: 1.5rem;
+  line-height: 2rem;
+
 `;

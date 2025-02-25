@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-function ServiceCard({ icon, title, description, button, bgColor, link }) {
+function ServiceCard({ icon:Icon, title, description, button, bgColor, link }) {
   return (
     <CardDiv bgColor={bgColor}>
-      <CardIcon src={icon} alt="icon" />
+      <CardIcon>{Icon && <Icon />}</CardIcon>
       <CardTitle>{title}</CardTitle>
       <CardDescription>{description}</CardDescription>
       <CardButton to={link}>{button}</CardButton>
@@ -29,9 +29,18 @@ const CardDiv = styled.div`
   }
 `;
 
-const CardIcon = styled.img`
-  width: 15%;
+
+const CardIcon = styled.span`
+  width:40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #6A0DAD;
+  border-radius: 50%;
+  color: #F7C5CC;
 `;
+
 
 const CardTitle = styled.p`
   font-family: Roboto Slab;

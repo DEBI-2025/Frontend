@@ -1,12 +1,15 @@
 import ServiceCard from "./ServiceCard";
-import shape from "../images/shape.png";
 import styled from "styled-components";
+import EmojiObjectsTwoToneIcon from '@mui/icons-material/EmojiObjectsTwoTone';
+import QuestionMarkTwoToneIcon from '@mui/icons-material/QuestionMarkTwoTone';
+import ThumbsUpDownTwoToneIcon from '@mui/icons-material/ThumbsUpDownTwoTone';
+import QuizTwoToneIcon from '@mui/icons-material/QuizTwoTone';
 
 function ServicesContainer() {
   return (
     <CardsContainer>
       <ServiceCard
-        icon={shape}
+        icon={EmojiObjectsTwoToneIcon}
         title={"Interview Tips"}
         description={
           "Ace your next interview with expert tips! From preparation strategies to common questions, get the insights you need to succeed!"
@@ -15,7 +18,8 @@ function ServicesContainer() {
         link="/tips"
       />
       <ServiceCard
-        icon={shape}
+        icon={QuestionMarkTwoToneIcon}
+
         title={"Question Bank"}
         description={
           "Practice with real interview questions, gain valuable insights, and boost your confidence before the big day!"
@@ -25,7 +29,8 @@ function ServicesContainer() {
         link="/questionbank"
       />{" "}
       <ServiceCard
-        icon={shape}
+        icon={ThumbsUpDownTwoToneIcon}
+
         title={"Rate Your CV"}
         description={
           "Get expert feedback on your CV, improve your skills, enhance your presentation, and make it stand out to top recruiters worldwide!"
@@ -35,7 +40,8 @@ function ServicesContainer() {
         link="/rateyourcv"
       />{" "}
       <ServiceCard
-        icon={shape}
+        icon={QuizTwoToneIcon}
+
         title={"Quiz"}
         description={
           "Test your knowledge with our interactive quiz, challenge yourself, track progress, and see how prepared you are for success!"

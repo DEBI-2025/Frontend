@@ -43,6 +43,19 @@ const Wrapper = styled.div`
   display: flex;
   height: 90%;
   overflow: hidden;
+  @media (max-width: 1024px) {
+    height: 87%;
+  }
+  @media (max-width: 768px) {
+    height: 88%;
+  }
+  @media (max-width: 550px) {
+    height: 85%;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    padding-top: 3rem;
+    gap: 2rem;
+  }
 `;
 
 const LeftSide = styled.div`
@@ -51,6 +64,17 @@ const LeftSide = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 0 8rem 0 5rem;
+
+  @media (max-width: 1024px) {
+    /* width: 80%; */
+    padding: 0 3rem 0 3rem;
+  }
+  @media (max-width: 550px) {
+    padding: 0;
+    /* width: 100%; */
+    align-items: center;
+    /* gap: 2rem; */
+  }
 `;
 
 const LeftTitle = styled.h1`
@@ -63,6 +87,21 @@ const LeftTitle = styled.h1`
   -webkit-background-clip: text;
   color: transparent;
   display: inline-block;
+
+  @media (max-width: 1024px) {
+    font-size: 3rem;
+    letter-spacing: 8px;
+    margin-bottom: 0rem;
+  }
+  @media (max-width: 768px) {
+    font-size: 2.4rem;
+    letter-spacing: 4px;
+    margin-bottom: 1.1rem;
+  }
+  @media (max-width: 550px) {
+    font-size: 2.5rem;
+    margin-bottom: 1.7rem;
+  }
 `;
 
 const LeftText = styled.p`
@@ -73,6 +112,25 @@ const LeftText = styled.p`
   font-size: 20px;
   line-height: 30px;
   margin-bottom: 3.5rem;
+
+  @media (max-width: 1024px) {
+    font-size: 17px;
+    line-height: 25px;
+    margin-bottom: 1.5rem;
+  }
+  @media (max-width: 768px) {
+    font-size: 14px;
+    line-height: 23px;
+    margin-bottom: 2.5rem;
+  }
+  /* @media (max-width: 550px) {
+    font-size: 17px;
+    line-height: 25px;
+    padding: 0 1rem 0 1rem;
+  } */
+  @media (max-width: 550px) {
+    display: none;
+  }
 `;
 
 const LeftButton = styled.button`
@@ -92,6 +150,20 @@ const LeftButton = styled.button`
   &:hover {
     transform: scale(1.03);
   }
+
+  @media (max-width: 1024px) {
+    width: 30rem;
+    height: 2.9rem;
+    font-size: 1.3rem;
+  }
+  @media (max-width: 768px) {
+    width: 23rem;
+    height: 2.4rem;
+    font-size: 1.2rem;
+  }
+  @media (max-width: 550px) {
+    width: 20rem;
+  }
 `;
 
 const RightSide = styled.div`
@@ -103,4 +175,15 @@ const RightSide = styled.div`
 
 const Image = styled.img`
   width: 30rem;
+
+  @media (max-width: 1024px) {
+    width: 25rem;
+  }
+  @media (max-width: 768px) {
+    width: 19rem;
+  }
+  @media (max-width: 550px) {
+    width: 100%;
+    padding-left: 4rem;
+  }
 `;

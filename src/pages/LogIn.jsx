@@ -160,7 +160,7 @@ text-transform: uppercase;
 font-size: 1.7rem;
 font-weight: 900;
 font-family: antonio;
-background: linear-gradient(to right, var(--primary) 20%, var(--secondary), var(--tertiary));
+background: linear-gradient(to right, #6a0dad 20%, #af73cf, #f7c5cc);
 background-clip: text;
 -webkit-background-clip: text;
 color: transparent;

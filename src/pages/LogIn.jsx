@@ -54,7 +54,9 @@ function LogIn() {
         <Title>Hello Friend!</Title>
         <SubTitle>Please Provide The Information to SignIn</SubTitle>
         <LinkText>Don't Have an Account?</LinkText>
-        <Button type="signup">Sign Up</Button>
+        <Button type="signup" onClick={() => navigate("/signup")}>
+          Sign Up
+        </Button>
       </LeftPanel>
       <RightPanel>
         <NavWrapper>

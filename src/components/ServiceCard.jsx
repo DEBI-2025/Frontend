@@ -1,9 +1,16 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-function ServiceCard({ icon:Icon, title, description, button, bgColor, link }) {
+function ServiceCard({
+  icon: Icon,
+  title,
+  description,
+  button,
+  bgcolor,
+  link,
+}) {
   return (
-    <CardDiv bgColor={bgColor}>
+    <CardDiv bgcolor={bgcolor}>
       <CardIcon>{Icon && <Icon />}</CardIcon>
       <CardTitle>{title}</CardTitle>
       <CardDescription>{description}</CardDescription>
@@ -19,7 +26,7 @@ const CardDiv = styled.div`
   justify-content: center;
   width: 45%;
   height: 90%;
-  background-color: ${({ bgColor }) => bgColor || "#f7c5cc59"};
+  background-color: ${({ bgcolor }) => bgcolor || "#f7c5cc59"};
   border-radius: 10px;
   padding: 30px;
   transition: transform 0.2s;
@@ -27,26 +34,36 @@ const CardDiv = styled.div`
   &:hover {
     transform: scale(1.03);
   }
+  @media (max-width: 1024px) {
+    width: 55%;
+  }
+  @media (max-width: 768px) {
+    width: 70%;
+  }
+  @media (max-width: 550px) {
+    height: 80%;
+  }
 `;
 
-
 const CardIcon = styled.span`
-  width:40px;
+  width: 40px;
   height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #6A0DAD;
+  background-color: #6a0dad;
   border-radius: 50%;
-  color: #F7C5CC;
+  color: #f7c5cc;
 `;
-
 
 const CardTitle = styled.p`
   font-family: Roboto Slab;
   font-weight: 700;
   font-size: 1.5rem;
   margin: 1rem 0 0 0;
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+  }
 `;
 
 const CardDescription = styled.p`
@@ -66,5 +83,5 @@ const CardButton = styled(Link)`
   color: white;
   cursor: pointer;
   border-radius: 50px;
-  background: #6a0dad;
+  background-color: #6a0dad;
 `;

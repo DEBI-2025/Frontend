@@ -1,10 +1,14 @@
+import { useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import robot from "../images/Robot.png";
+import { FaBars, FaTimes } from "react-icons/fa";
+
 function NavBar() {
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <Nav>
@@ -12,12 +16,12 @@ function NavBar() {
         <NavImg src={robot} />
         <NavTxt>Inner views</NavTxt>
       </NavTitle>
-      <Ul>
+      <MenuIcon onClick={() => setMenuOpen(!menuOpen)}>
+        {menuOpen ? <FaTimes /> : <FaBars />}
+      </MenuIcon>
+      <Ul className={menuOpen ? "open" : ""}>
         <Li>
-          <NavLinkStyled
-            to="/"
-            className={isActive("/") ? "active" : ""}
-          >
+          <NavLinkStyled to="/" className={isActive("/") ? "active" : ""}>
             Home
           </NavLinkStyled>
         </Li>
@@ -38,13 +42,12 @@ function NavBar() {
           </NavLinkStyled>
         </Li>
       </Ul>
-      <SignButton onClick={() => navigate("/login")}>Log In</SignButton>
+      <SignButton onClick={() => navigate("/login")}>Sign In</SignButton>
     </Nav>
   );
 }
 
 export default NavBar;
-
 
 const Nav = styled.nav`
   display: flex;
@@ -52,24 +55,45 @@ const Nav = styled.nav`
   align-items: center;
   gap: 15rem;
   height: 2.8rem;
+  /* width: 94.32rem; */
+  /* width: 98.24%; */
   padding: 0.7rem;
   border-radius: 0 0 1.7rem 1.7rem;
   border: 3px solid transparent;
   background: linear-gradient(white, white) padding-box,
     linear-gradient(to right, #6a0dad, #af73cf, #f7c5cc) border-box;
+  /* position: fixed; */
 
+  @media (max-width: 1024px) {
+    gap: 10rem;
+  }
+  @media (max-width: 768px) {
+    gap: 7rem;
+    padding: 0.5rem 0.9rem;
+  }
+  @media (max-width: 550px) {
+    /* position: fixed; */
+    /* width: 91.24%; */
+  }
 `;
 
 const NavTitle = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  width: 10rem;
   cursor: default;
 `;
 
 const NavImg = styled.img`
   width: 25px;
   padding-top: 0.35rem;
+  @media (max-width: 1024px) {
+    width: 21px;
+  }
+  @media (max-width: 550px) {
+    padding-top: 0.25rem;
+  }
 `;
 
 const NavTxt = styled.p`
@@ -82,20 +106,65 @@ const NavTxt = styled.p`
   -webkit-background-clip: text;
   color: transparent;
   display: inline-block;
+
+  @media (max-width: 1024px) {
+    font-size: 1.3rem;
+  }
+`;
+
+const MenuIcon = styled.div`
+  display: none;
+
+  @media (max-width: 550px) {
+    display: block;
+    font-size: 1.9rem;
+    cursor: pointer;
+    color: #6a0dad;
+  }
 `;
 
 const Ul = styled.ul`
   margin: 0rem;
+  padding: 0;
   display: flex;
   justify-content: space-around;
   gap: 7rem;
   list-style: none;
   font-size: 1.4rem;
+  @media (max-width: 1024px) {
+    gap: 5rem;
+    font-size: 1.25rem;
+  }
+  @media (max-width: 768px) {
+    gap: 4rem;
+    font-size: 1.15rem;
+  }
+  @media (max-width: 550px) {
+    flex-direction: column;
+    position: absolute;
+    top: 3.5rem;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    text-align: center;
+    border-radius: 0 0 1rem 1rem;
+    overflow: hidden;
+    visibility: hidden;
+    gap: 2rem;
+    /* list-style: disc; */
+
+  }
+
+  &.open {
+    max-height: 15rem;
+    /* opacity: 1; */
+    visibility: visible;
+    padding: 1rem 0;
+  }
 `;
 
 const Li = styled.li`
-/* padding-bottom: 30px; */
-text-underline-offset: 3px;
+  text-underline-offset: 3px;
 `;
 
 const NavLinkStyled = styled(NavLink)`
@@ -126,11 +195,24 @@ const SignButton = styled.button`
   background: linear-gradient(white, white) padding-box,
     linear-gradient(to right, #6a0dad, #af73cf, #f7c5cc) border-box;
   border: 3px solid transparent;
-  
 
   &:hover {
     background: #6a0dad;
     color: white;
     transform: scale(1.07);
+  }
+
+  @media (max-width: 1024px) {
+    width: 6.5rem;
+    height: 2.3rem;
+    font-size: 1.1rem;
+  }
+  @media (max-width: 768px) {
+    width: 5.5rem;
+    height: 2.2rem;
+    font-size: 1.05rem;
+  }
+  @media (max-width: 550px) {
+    display: none;
   }
 `;

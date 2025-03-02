@@ -54,9 +54,9 @@ function LogIn() {
   return (
     <Container>
       <SignInSection>
-      <TopLeftIcon>
-      <IconAndTitle />
-    </TopLeftIcon>
+        <TopLeftIcon>
+          <IconAndTitle />
+        </TopLeftIcon>
 
         <Title>Sign In To Your Account</Title>
         <form onSubmit={handleLogin}>
@@ -101,14 +101,26 @@ export default LogIn;
 const Container = styled.div`
   display: flex;
   height: 100vh;
+  @media (max-width: 550px) {
+    flex-direction: column-reverse;
+  }
 `;
 
 const TopLeftIcon = styled.div`
   position: absolute;
   top: 1rem;
   left: 8rem;
+  @media (max-width: 1024px) {
+    left: 2rem;
+  }
+  @media (max-width: 768px) {
+    left: 1.2rem;
+    top: 2.5rem;
+  }
+  @media (max-width: 550px) {
+    top: 0.4rem;
+  }
 `;
-
 
 const SignInSection = styled.div`
   flex: 1;
@@ -122,6 +134,12 @@ const Title = styled.h1`
   font-size: 3rem;
   padding-bottom: 1rem;
   cursor: default;
+  @media (max-width: 1024px) {
+    font-size: 2.7rem;
+  }
+  @media (max-width: 768px) {
+    font-size: 2.1rem;
+  }
 `;
 
 const ForgotText = styled.p`
@@ -129,5 +147,8 @@ const ForgotText = styled.p`
   cursor: default;
   text-align: center;
   color: #0d1b2a80;
-`;
 
+  @media (max-width: 550px) {
+    margin-top: 0;
+  }
+`;

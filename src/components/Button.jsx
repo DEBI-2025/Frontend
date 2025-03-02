@@ -1,8 +1,17 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-function Button({ onClick, type, children, width, fontSize }) {
+function Button({ onClick, type, children, width, fontSize, height }) {
+  const navigate = useNavigate();
+
   return (
-    <Wrapper onClick={onClick} type={type} width={width} fontSize={fontSize}>
+    <Wrapper
+      onClick={() => navigate(onClick)}
+      type={type}
+      width={width}
+      fontSize={fontSize}
+      height={height}
+    >
       {children}
     </Wrapper>
   );
@@ -11,10 +20,10 @@ function Button({ onClick, type, children, width, fontSize }) {
 export default Button;
 const Wrapper = styled.button`
   width: ${({ width }) => width || "40rem"};
+  height: ${({ height }) => height || "3.2rem"};
   font-size: ${({ fontSize }) => fontSize || "1.5rem"};
   font-family: Roboto Slab;
   font-weight: 500;
-  height: 3.2rem;
   border-radius: 50px;
   cursor: pointer;
   background: ${({ type }) =>

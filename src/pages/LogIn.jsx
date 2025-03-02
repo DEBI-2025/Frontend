@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Email, Lock } from "@mui/icons-material";
 import axios from "axios";
-import robot from "../images/Robot.png";
+import IconAndTitle from "../components/IconAndTitle";
+import LeftPanel from "../components/LeftPanel";
+import InputField from "../components/InputField";
+import Button from "../components/Button";
 
 function LogIn() {
   const [email, setEmail] = useState("");
@@ -50,51 +53,45 @@ function LogIn() {
 
   return (
     <Container>
-      <LeftPanel>
-        <Title>Hello Friend!</Title>
-        <SubTitle>Please Provide The Information to SignIn</SubTitle>
-        <LinkText>Don't Have an Account?</LinkText>
-        <Button type="signup" onClick={() => navigate("/signup")}>
-          Sign Up
-        </Button>
-      </LeftPanel>
-      <RightPanel>
-        <NavWrapper>
-          <NavTitle to="/">
-            <NavImg src={robot} />
-            <NavTxt>InnerView</NavTxt>
-          </NavTitle>
-        </NavWrapper>
+      <SignInSection>
+        <TopLeftIcon>
+          <IconAndTitle />
+        </TopLeftIcon>
+
         <Title>Sign In To Your Account</Title>
         <form onSubmit={handleLogin}>
-          <InputWrapper>
-            <Icon>
-              <Email />
-            </Icon>
-            <InputField
-              type="email"
-              placeholder="Email Address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </InputWrapper>
-          <InputWrapper>
-            <Icon>
-              <Lock />
-            </Icon>
-            <InputField
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </InputWrapper>
-          <LinkText type="forgot">Forgot Password?</LinkText>
-          <Button type="submit">Sign In</Button>
+          <InputField
+            type="email"
+            placeholder="Email Address"
+            icon={Email}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <InputField
+            type="password"
+            placeholder="Password"
+            icon={Lock}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <ForgotText>Forgot Password?</ForgotText>
+          <Button onButtonClick={"/"} width={"32rem"} fontSize={"1rem"}>
+            Sign In
+          </Button>
         </form>
-      </RightPanel>
+      </SignInSection>
+      <LeftPanel
+        title={"Welcome Back!"}
+        subtitle={
+          "Please sign into your account with the given details to continue."
+        }
+        linkText={"Don’t Have an account ? Sign Up"}
+        buttonText={"Sign Up"}
+        onButtonClick={"/signup"}
+      />
     </Container>
   );
 }
@@ -104,135 +101,54 @@ export default LogIn;
 const Container = styled.div`
   display: flex;
   height: 100vh;
-`;
-
-const LeftPanel = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(to bottom right, #af73cf, #f7c5cc);
-  color: white;
-  cursor: pointer;
-`;
-
-const Logo = styled.div`
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-right: 2rem;
-  color: black;
-
-  @media (max-width: 768px) {
-    margin-right: 0;
-    margin-bottom: 1rem;
+  @media (max-width: 550px) {
+    flex-direction: column-reverse;
   }
 `;
 
-const RightPanel = styled.div`
+const TopLeftIcon = styled.div`
+  position: absolute;
+  top: 1rem;
+  left: 8rem;
+  @media (max-width: 1024px) {
+    left: 2rem;
+  }
+  @media (max-width: 768px) {
+    left: 1.2rem;
+    top: 2.5rem;
+  }
+  @media (max-width: 550px) {
+    top: 0.4rem;
+  }
+`;
+
+const SignInSection = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: white;
-  padding: 2rem;
 `;
 
 const Title = styled.h1`
   font-size: 3rem;
-`;
-
-const SubTitle = styled.p`
-  margin-top: -10px;
-  font-size: 19px;
-  padding-right: 2rem;
-`;
-
-const LinkText = styled.p`
-  font-size: ${({ type }) => (type === "forgot" ? "1.2rem" : "0.9rem")};
-  cursor: pointer;
-  margin-top: 6rem;
-  color: ${({ type }) => (type === "forgot" ? "#0D1B2A80" : "white")};
-`;
-
-const Button = styled.button`
-  width: 80%;
-  font-family: Literata;
-  padding: 12px;
-  background: ${({ type }) =>
-    type === "signup"
-      ? "none"
-      : "linear-gradient(to right, #6a0dad  , #af73cf , #f7c5cc )"};
-  color: white;
-  border: 1px solid white;
-  border-radius: 25px;
-  margin-top: 15px;
-  font-weight: 600;
-  transition: transform 100ms ease-in-out;
-  &:hover {
-    transform: scale(1.04);
-    cursor: pointer;
+  padding-bottom: 1rem;
+  cursor: default;
+  @media (max-width: 1024px) {
+    font-size: 2.7rem;
+  }
+  @media (max-width: 768px) {
+    font-size: 2.1rem;
   }
 `;
 
-const NavTitle = styled(NavLink)`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  text-decoration: none;
-`;
+const ForgotText = styled.p`
+  font-size: 1.2rem;
+  cursor: default;
+  text-align: center;
+  color: #0d1b2a80;
 
-const InputField = styled.input`
-  width: 80%;
-  border: none;
-  margin-left: 10px;
-  &:focus {
-    outline: none;
+  @media (max-width: 550px) {
+    margin-top: 0;
   }
-`;
-
-const InputWrapper = styled.div`
-  display: flex;
-  width: 80%;
-  padding: 8px;
-  margin: 10px 0;
-  border: 1px solid #d8b4fe;
-  border-radius: 25px;
-  outline: none;
-  text-indent: 15px;
-  margin-top: 1rem;
-`;
-
-const Icon = styled.div`
-  color: var(--color-secondary);
-  display: flex;
-  align-items: center;
-  color: #6a0dad;
-`;
-
-const NavImg = styled.img`
-  width: 25px;
-  padding-top: 0.35rem;
-`;
-const NavTxt = styled.p`
-  text-transform: uppercase;
-  font-size: 1.7rem;
-  font-weight: 900;
-  font-family: antonio;
-  background: linear-gradient(to right, #6a0dad 20%, #af73cf, #f7c5cc);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  display: inline-block;
-`;
-
-const NavWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  padding: 1rem 5rem;
 `;

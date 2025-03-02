@@ -38,6 +38,12 @@ const ServiceDiv = styled.div`
   opacity: 0;
   visibility: hidden;
   animation: ${slideIn} 2.5s ease-in-out 0.5s forwards;
+
+  @media (max-width: 1024px) {
+    height: 22%;
+  padding: 0 3rem;
+
+  }
   @media (max-width: 768px) {
     height: 20%;
   }
@@ -51,9 +57,9 @@ const ServiceDiv = styled.div`
 const TitleService = styled.p`
   font-family: "Roboto Slab";
   font-weight: 600;
-  font-size: 2.5rem;
+  font-size: 2.3rem;
   @media (max-width: 1024px) {
-    font-size: 2.1rem;
+    font-size: 1.9rem;
   }
   @media (max-width: 768px) {
     font-size: 1.7rem;
@@ -64,15 +70,15 @@ const TitleService = styled.p`
 `;
 
 const ImgService = styled.img`
-  width: 11.1%;
+  width: 8.5rem;
   @media (max-width: 1024px) {
-    width: 14.1%;
+    width: 10.33%;
   }
   @media (max-width: 768px) {
-    width: 16.1%;
+    width: 13.1%;
   }
   @media (max-width: 550px) {
-    width: 38.1%;
+    width: 26.8%;
 
     /* display: none; */
   }

@@ -1,20 +1,28 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Button from "./Button";
 
+function LeftPanel({ title, subtitle, linkText, buttonText, onButtonClick }) {
+  const navigate = useNavigate();
 
-const LeftPanel = ({ title, subtitle, linkText, buttonText, onButtonClick }) => {
   return (
     <Container>
       <Title>{title}</Title>
       <SubTitle>{subtitle}</SubTitle>
       <LinkText>{linkText}</LinkText>
-      <Button type="signup" onClick={onButtonClick}>{buttonText}</Button>
+      <Button
+        type={"transparent"}
+        width={"32rem"}
+        fontSize={"1rem"}
+        onClick={() => navigate(onButtonClick)}
+      >
+        {buttonText}
+      </Button>
     </Container>
   );
-};
+}
 
 export default LeftPanel;
-
 
 const Container = styled.div`
   flex: 1;
@@ -24,36 +32,23 @@ const Container = styled.div`
   justify-content: center;
   background: linear-gradient(to bottom right, #af73cf, #f7c5cc);
   color: white;
-  cursor: pointer;
-  padding-bottom: 10px;
+  cursor: default;
 `;
 
 const Title = styled.h1`
-  font-size: 2.5rem;
+  /* font-family: Roboto Slab; */
+  font-size: 3rem;
+  letter-spacing: 1.2px;
 `;
 
 const SubTitle = styled.p`
-  font-family: Literata;
-  margin-top: -10px;
-  font-size: 19px;
-  padding-right: 2rem;
+  /* margin-top: -10px; */
+  font-size: 1.2rem;
+  padding-bottom: 7.1rem;
   letter-spacing: 1px;
 `;
 
 const LinkText = styled.p`
-  font-size: 1rem;
-  margin-top: "6.5rem";
-  color: "white";
-`;
-
-const Button = styled.button`
-  width: 80%;
-  font-family: Literata;
-  padding: 12px;
-  background: ${({ type }) =>
-    type === "signup" ? "none" : "linear-gradient(to right, #6a0dad , #af73cf , #f7c5cc )"};
-  color: white;
-  border: 1px solid white;
-  border-radius: 25px;
-  font-weight: 600;
+  font-size: 1.2rem;
+  padding-bottom: 1rem;
 `;

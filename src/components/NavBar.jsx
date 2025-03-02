@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import robot from "../images/Robot.png";
 import { FaBars, FaTimes } from "react-icons/fa";
+import IconAndTitle from "./IconAndTitle";
 
 function NavBar() {
   const location = useLocation();
@@ -12,10 +12,7 @@ function NavBar() {
 
   return (
     <Nav>
-      <NavTitle>
-        <NavImg src={robot} />
-        <NavTxt>Inner views</NavTxt>
-      </NavTitle>
+     <IconAndTitle/>
       <MenuIcon onClick={() => setMenuOpen(!menuOpen)}>
         {menuOpen ? <FaTimes /> : <FaBars />}
       </MenuIcon>
@@ -77,40 +74,7 @@ const Nav = styled.nav`
   }
 `;
 
-const NavTitle = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  width: 10rem;
-  cursor: default;
-`;
 
-const NavImg = styled.img`
-  width: 25px;
-  padding-top: 0.35rem;
-  @media (max-width: 1024px) {
-    width: 21px;
-  }
-  @media (max-width: 550px) {
-    padding-top: 0.25rem;
-  }
-`;
-
-const NavTxt = styled.p`
-  text-transform: uppercase;
-  font-size: 1.6rem;
-  font-weight: 600;
-  font-family: antonio;
-  background: linear-gradient(to right, #6a0dad 20%, #af73cf, #f7c5cc);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  display: inline-block;
-
-  @media (max-width: 1024px) {
-    font-size: 1.3rem;
-  }
-`;
 
 const MenuIcon = styled.div`
   display: none;
@@ -152,7 +116,6 @@ const Ul = styled.ul`
     visibility: hidden;
     gap: 2rem;
     /* list-style: disc; */
-
   }
 
   &.open {

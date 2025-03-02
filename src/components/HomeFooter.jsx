@@ -23,10 +23,10 @@ const Footer = styled.div`
   background-color: #a1dbe24d;
   display: flex;
   justify-content: space-around;
-  height: 40%;
+  height: 35%;
   padding: 2rem;
   @media (max-width: 1024px) {
-    height: 30%;
+    height: 33%;
   }
   @media (max-width: 768px) {
     height: 28%;
@@ -50,7 +50,7 @@ const FooterRight = styled.div`
 const FooterTitle = styled.p`
   font-family: Roboto Slab;
   font-weight: 600;
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   letter-spacing: 0.2rem;
   margin: 2rem 0;
   @media (max-width: 1024px) {
@@ -62,16 +62,16 @@ const FooterTitle = styled.p`
     margin: 1.1rem 0;
   }
   @media (max-width: 550px) {
-    font-size: 2rem;
+    font-size: 1.9rem;
   }
 `;
 
 const FooterDescription = styled.p`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   line-height: 2rem;
   @media (max-width: 1024px) {
-    font-size: 1.1rem;
-    line-height: 1.5rem;
+    font-size: 1.03rem;
+    line-height: 1.3rem;
   }
 
   @media (max-width: 768px) {

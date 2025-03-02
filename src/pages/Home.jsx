@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import LandingText from "../components/LandingText";
-import NavBar from "../components/NavBar";
+import landingImg from "../images/Landing.png";
 import ServiceTitle from "../components/ServiceTitle";
 import ServicesContainer from "../components/ServicesContainer";
 import HomeFooter from "../components/HomeFooter";
 
+
 function Home() {
   return (
     <Wrapper>
-      <NavBar />
-      <LandingText />
+      <LandingText title={"Inner Views"} description={"AI-Powered Job Interview Simulator helps job seekers improve their interview skills through realistic simulations, AI-driven feedback,and expert tips. Users can practice answering industry-specific questions, receive instant evaluations, and enhance their responses with AI suggestions."} buttonText={"Start Practicing"} rightImg={landingImg}/>
       <ServiceTitle />
       <ServicesContainer />
       <HomeFooter />
@@ -20,7 +20,7 @@ function Home() {
 export default Home;
 
 const Wrapper = styled.div`
-  height: 100vh;
+  height:89.6%;
   overflow-y: auto;
   margin-right: 0.2rem;
 
@@ -31,7 +31,7 @@ const Wrapper = styled.div`
   &::-webkit-scrollbar-track {
     background: #8888887d;
     border-radius: 5px;
-    margin: 4.5rem;
+    margin-bottom: 0.3rem;
     /* width: 5px; */
   }
 

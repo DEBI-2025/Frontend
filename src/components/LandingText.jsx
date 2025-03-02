@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import landingImg from "../images/Landing.png";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
-function LandingText() {
+function LandingText({title,description,buttonText,rightImg}) {
   const navigate = useNavigate();
 
   return (
@@ -14,16 +13,12 @@ function LandingText() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, ease: "easeOut" }}
       >
-        <LeftTitle>Inner Views</LeftTitle>
+        <LeftTitle>{title}</LeftTitle>
         <LeftText>
-          AI-Powered Job Interview Simulator helps job seekers improve their
-          interview skills through realistic simulations, AI-driven feedback,
-          and expert tips. Users can practice answering industry-specific
-          questions, receive instant evaluations, and enhance their responses
-          with AI suggestions.
+          {description}
         </LeftText>
         <LeftButton onClick={() => navigate("/signup")}>
-          Start Practicing
+          {buttonText}
         </LeftButton>
       </LeftSide>
       <RightSide
@@ -32,7 +27,7 @@ function LandingText() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, ease: "easeOut" }}
       >
-        <Image src={landingImg} alt="landing image" />
+        <Image src={rightImg} alt="landing image" />
       </RightSide>
     </Wrapper>
   );
@@ -41,20 +36,20 @@ function LandingText() {
 export default LandingText;
 const Wrapper = styled.div`
   display: flex;
-  height: 90%;
+  height: 100%;
   overflow: hidden;
   @media (max-width: 1024px) {
-    height: 87%;
+    height: 97%;
   }
   @media (max-width: 768px) {
-    height: 88%;
+    height: 100%;
   }
   @media (max-width: 550px) {
-    height: 85%;
+    height: 93%;
     flex-direction: column-reverse;
     justify-content: flex-end;
     padding-top: 3rem;
-    gap: 2rem;
+    gap: 2.4rem;
   }
 `;
 
@@ -64,6 +59,7 @@ const LeftSide = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 0 8rem 0 5rem;
+  /* gap: 0.5rem; */
 
   @media (max-width: 1024px) {
     /* width: 80%; */
@@ -81,7 +77,7 @@ const LeftTitle = styled.h1`
   font-family: Roboto Slab;
   letter-spacing: 10px;
   font-size: 3.5rem;
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
   background: linear-gradient(to right, #6a0dad, #af73cf, #f7c5cc 70%);
   background-clip: text;
   -webkit-background-clip: text;
@@ -100,7 +96,7 @@ const LeftTitle = styled.h1`
   }
   @media (max-width: 550px) {
     font-size: 2.5rem;
-    margin-bottom: 1.7rem;
+    margin-bottom: 1.9rem;
   }
 `;
 

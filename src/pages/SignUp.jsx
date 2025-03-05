@@ -8,69 +8,10 @@ import LeftPanel from "../components/LeftPanel";
 import IconAndTitle from "../components/IconAndTitle";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
+import { useSignUp } from "../logic/signUp";
 
 function SignUp() {
-  const navigate = useNavigate();
-  const [values, setValues] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    dateOfBirth: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleChange = (event) => {
-    const newObj = { ...values, [event.target.name]: event.target.value };
-    setValues(newObj);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setErrors(Validation(values)); // Validate input
-
-    if (Object.keys(errors).length === 0) {
-      // Only proceed if no errors
-      setIsSubmitting(true);
-
-      try {
-        const requestBody = {
-          first_name: values.firstName,
-          last_name: values.lastName,
-          email: values.email,
-          phone: values.phone,
-          date_of_birth: values.dateOfBirth,
-          password: values.password,
-          re_password: values.confirmPassword, // Assuming `re_password` is for confirming password
-        };
-
-        // Make the POST request to the server to create the user
-        const response = await axios.post(
-          "http://localhost:8000/auth/users/", // Replace with your API endpoint
-          requestBody,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        if (response.status === 201) {
-          // Successfully created user, navigate to login page
-          alert("Sign up successful! Please login.");
-          navigate("/login");
-        }
-      } catch (error) {
-        console.error("Error signing up:", error);
-        alert("An error occurred during sign up. Please try again.");
-      } finally {
-        setIsSubmitting(false);
-      }
-    }
-  };
+  const { values, errors, handleChange, handleSubmit, isLoading } = useSignUp();
 
   return (
     <Container
@@ -175,8 +116,8 @@ function SignUp() {
           )}
 
           <LinkText type="forgot">Sign up with</LinkText>
-          <Button type="submit" disabled={isSubmitting} width={"35rem"}>
-            {isSubmitting ? "Signing up..." : "Sign Up"}
+          <Button type="submit" disabled={isLoading} width="35rem">
+            {isLoading ? "Signing up..." : "Sign Up"}
           </Button>
         </Form>
       </RightPanel>

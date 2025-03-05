@@ -17,7 +17,7 @@ export default  function Validation(values){
     }
     if(!values.phone.trim()){
         errors.phone ="Phone is required";
-    }else if (!/^\d{10}$/.test(values.phone)) {
+    }else if (!/^\d{11}$/.test(values.phone)) {
         errors.phone = "Phone number must be 11 digits";
       }
       if(!values.password.trim()){

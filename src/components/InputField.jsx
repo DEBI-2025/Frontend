@@ -8,6 +8,7 @@ function InputField({
   margin,
   value,
   onChange,
+  id,
 }) {
   return (
     <InputContainer>
@@ -15,6 +16,7 @@ function InputField({
       <Field
         placeholder={placeholder}
         name={name}
+        id={id}
         type={type}
         margin={margin}
         value={value}

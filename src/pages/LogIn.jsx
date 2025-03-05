@@ -45,7 +45,7 @@ function LogIn() {
       if (error.response && error.response.status === 401) {
         alert("Invalid credentials, please try again.");
       } else {
-        console.error("Login failed:", error);
+        // console.error("Login failed:", error);
         alert("An error occurred during login. Please try again.");
       }
     }
@@ -61,24 +61,31 @@ function LogIn() {
         <Title>Sign In To Your Account</Title>
         <form onSubmit={handleLogin}>
           <InputField
-            type="email"
-            placeholder="Email Address"
             icon={Email}
+            placeholder="Email Address"
+            type="email"
+            id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
           <InputField
-            type="password"
-            placeholder="Password"
             icon={Lock}
+            placeholder="Password"
+            type="password"
             value={password}
+            id={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
 
           <ForgotText>Forgot Password?</ForgotText>
-          <Button onButtonClick={"/"} width={"32rem"} fontSize={"1rem"}>
+          <Button
+            // onButtonClick={"/"}
+            type="submit"
+            width={"32rem"}
+            fontSize={"1rem"}
+          >
             Sign In
           </Button>
         </form>

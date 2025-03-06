@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Button from "./Button";
+import { isAuthenticated } from "../utils/isAuth";
 
 function LandingText({ title, description, buttonText, rightImg }) {
   return (
@@ -13,7 +14,9 @@ function LandingText({ title, description, buttonText, rightImg }) {
       >
         <LeftTitle>{title}</LeftTitle>
         <LeftText>{description}</LeftText>
-        <Button onClick={"/signup"}>{buttonText}</Button>
+        {!isAuthenticated() && (
+          <Button onClick={"/signup"}>{buttonText}</Button>
+        )}
       </LeftSide>
       <RightSide
         as={motion.div}

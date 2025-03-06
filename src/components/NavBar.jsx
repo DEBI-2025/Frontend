@@ -3,16 +3,18 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FaBars, FaTimes } from "react-icons/fa";
 import IconAndTitle from "./IconAndTitle";
+import { isAuthenticated } from "../utils/isAuth";
 
 function NavBar() {
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  // console.log(isAuthenticated());
 
   return (
     <Nav>
-     <IconAndTitle/>
+      <IconAndTitle />
       <MenuIcon onClick={() => setMenuOpen(!menuOpen)}>
         {menuOpen ? <FaTimes /> : <FaBars />}
       </MenuIcon>
@@ -39,7 +41,9 @@ function NavBar() {
           </NavLinkStyled>
         </Li>
       </Ul>
-      <SignButton onClick={() => navigate("/login")}>Sign In</SignButton>
+      {!isAuthenticated() && (
+        <SignButton onClick={() => navigate("/login")}>Sign In</SignButton>
+      )}
     </Nav>
   );
 }
@@ -73,8 +77,6 @@ const Nav = styled.nav`
     /* width: 91.24%; */
   }
 `;
-
-
 
 const MenuIcon = styled.div`
   display: none;

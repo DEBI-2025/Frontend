@@ -8,7 +8,7 @@ import LeftPanel from "../components/LeftPanel";
 import IconAndTitle from "../components/IconAndTitle";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
-import { useSignUp } from "../logic/signUp";
+import { useSignUp } from "../API/signUp";
 
 function SignUp() {
   const { values, errors, handleChange, handleSubmit, isLoading } = useSignUp();

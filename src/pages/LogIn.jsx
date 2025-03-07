@@ -1,54 +1,21 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import { Email, Lock } from "@mui/icons-material";
-import axios from "axios";
 import IconAndTitle from "../components/IconAndTitle";
 import LeftPanel from "../components/LeftPanel";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
+import { useLogin } from "../logic/Auth/useLogin";
 
 function LogIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [email, setEmail] = useState("samasokkar15@gmail.com");
+  const [password, setPassword] = useState("sama1234");
+
+  const { login, isLoading } = useLogin();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    const loginData = {
-      email,
-      password,
-    };
-
-    try {
-      // Send a POST request to the /jwt/create/ endpoint using Axios
-      const response = await axios.post(
-        "http://127.0.0.1:8000/auth/jwt/create/",
-        loginData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      // If login is successful, store the token and redirect
-      if (response.status === 200) {
-        localStorage.setItem("access_token", response.data.access); // Store the access token
-        localStorage.setItem("refresh_token", response.data.refresh); // Optionally, store the refresh token
-        alert("Login successful!");
-        navigate("/");
-      }
-    } catch (error) {
-      // Handle error (e.g., wrong credentials)
-      if (error.response && error.response.status === 401) {
-        alert("Invalid credentials, please try again.");
-      } else {
-        console.error("Login failed:", error);
-        alert("An error occurred during login. Please try again.");
-      }
-    }
+    login({ email, password });
   };
 
   return (
@@ -61,24 +28,31 @@ function LogIn() {
         <Title>Sign In To Your Account</Title>
         <form onSubmit={handleLogin}>
           <InputField
-            type="email"
-            placeholder="Email Address"
             icon={Email}
+            placeholder="Email Address"
+            type="email"
+            id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
           <InputField
-            type="password"
-            placeholder="Password"
             icon={Lock}
+            placeholder="Password"
+            type="password"
             value={password}
+            id={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
 
           <ForgotText>Forgot Password?</ForgotText>
-          <Button onButtonClick={"/"} width={"32rem"} fontSize={"1rem"}>
+          <Button
+            // onButtonClick={"/"}
+            type="submit"
+            width={"32rem"}
+            fontSize={"1rem"}
+          >
             Sign In
           </Button>
         </form>

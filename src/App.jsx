@@ -8,35 +8,76 @@ import Quiz from "./pages/Quiz";
 import Tips from "./pages/Tips";
 import QuestionBank from "./pages/QuestionBank";
 import RateCV from "./pages/RateCV";
-import Activate from "./pages/auth/Activate";
-import ResetPassword from "./pages/auth/ResetPassword";
-import ResetPasswordConfirm from "./pages/auth/ResetPasswordConfirm";
+// import Activate from "./pages/auth/Activate";
+// import ResetPassword from "./pages/auth/ResetPassword";
+// import ResetPasswordConfirm from "./pages/auth/ResetPasswordConfirm";
 import AppLayout from "./components/AppLayout";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "react-hot-toast";
+import PrivateRoute from "./components/PrivateRoute";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000,
+    },
+  },
+});
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<AppLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="quiz" element={<Quiz />} />
-          <Route path="tips" element={<Tips />} />
-          <Route path="questionbank" element={<QuestionBank />} />
-          <Route path="rateyourcv" element={<RateCV />} />
-        </Route>
-
-        <Route path="activate/:uid/:token" element={<Activate />} />
-        <Route path="reset-password" element={<ResetPassword />} />
-        <Route
-          path="password/reset/confirm/:uid/:token"
-          element={<ResetPasswordConfirm />}
-        />
-
-        <Route path="login" element={<LogIn />} />
-        <Route path="signup" element={<SignUp />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <BrowserRouter>
+        <Routes>
+          <Route element={<AppLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="quiz"
+              element={
+                <PrivateRoute>
+                  <Quiz />
+                </PrivateRoute>
+              }
+            />
+            <Route path="tips" element={<Tips />} />
+            <Route
+              path="questionbank"
+              element={
+                <PrivateRoute>
+                  <QuestionBank />
+                </PrivateRoute>
+              }
+            />
+            <Route path="rateyourcv" element={<RateCV />} />
+          </Route>
+          <Route path="login" element={<LogIn />} />
+          <Route path="signup" element={<SignUp />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </BrowserRouter>
+      <Toaster
+        position="top-center"
+        gutter={12}
+        containerStyle={{ margin: "8px" }}
+        toastOptions={{
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 5000,
+          },
+          style: {
+            fontSize: "16px",
+            maxWidth: "500px",
+            padding: "16px 24px",
+            backgroundColor: "#fff",
+            color: "#222",
+          },
+        }}
+      />
+    </QueryClientProvider>
   );
 }
 

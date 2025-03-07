@@ -13,6 +13,8 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^6.4.5",
     "@redux-devtools/extension": "^3.3.0",
+    "@tanstack/react-query": "^5.67.1",
+    "@tanstack/react-query-devtools": "^5.67.1",
     "axios": "^1.7.9",
     "framer-motion": "^12.4.5",
     "react": "^19.0.0",
@@ -22,7 +24,9 @@
     "react-router-dom": "^7.1.5",
     "redux": "^5.0.1",
     "redux-thunk": "^3.1.0",
-    "styled-components": "^6.1.15"
+    "styled-components": "^6.1.15",
+    "react-hot-toast": "^2.4.1",
+    "js-cookie": "^3.0.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",

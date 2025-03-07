@@ -3,16 +3,18 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FaBars, FaTimes } from "react-icons/fa";
 import IconAndTitle from "./IconAndTitle";
+import { isAuthenticated } from "../utils/isAuth";
 
 function NavBar() {
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  // console.log(isAuthenticated());
 
   return (
     <Nav>
-     <IconAndTitle/>
+      <IconAndTitle />
       <MenuIcon onClick={() => setMenuOpen(!menuOpen)}>
         {menuOpen ? <FaTimes /> : <FaBars />}
       </MenuIcon>
@@ -39,7 +41,11 @@ function NavBar() {
           </NavLinkStyled>
         </Li>
       </Ul>
-      <SignButton onClick={() => navigate("/login")}>Sign In</SignButton>
+      {!isAuthenticated() ? (
+        <SignButton onClick={() => navigate("/login")}>Sign In</SignButton>
+      ) : (
+        <DivAlt/>
+      )}
     </Nav>
   );
 }
@@ -52,14 +58,11 @@ const Nav = styled.nav`
   align-items: center;
   gap: 15rem;
   height: 2.8rem;
-  /* width: 94.32rem; */
-  /* width: 98.24%; */
   padding: 0.7rem;
   border-radius: 0 0 1.7rem 1.7rem;
   border: 3px solid transparent;
   background: linear-gradient(white, white) padding-box,
     linear-gradient(to right, #6a0dad, #af73cf, #f7c5cc) border-box;
-  /* position: fixed; */
 
   @media (max-width: 1024px) {
     gap: 10rem;
@@ -69,12 +72,8 @@ const Nav = styled.nav`
     padding: 0.5rem 0.9rem;
   }
   @media (max-width: 550px) {
-    /* position: fixed; */
-    /* width: 91.24%; */
   }
 `;
-
-
 
 const MenuIcon = styled.div`
   display: none;
@@ -175,6 +174,13 @@ const SignButton = styled.button`
     height: 2.2rem;
     font-size: 1.05rem;
   }
+  @media (max-width: 550px) {
+    display: none;
+  }
+`;
+
+const DivAlt = styled.div`
+  width: 6.5rem;
   @media (max-width: 550px) {
     display: none;
   }

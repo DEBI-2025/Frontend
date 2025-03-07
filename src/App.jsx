@@ -12,6 +12,8 @@ import Activate from "./pages/auth/Activate";
 import ResetPassword from "./pages/auth/ResetPassword";
 import ResetPasswordConfirm from "./pages/auth/ResetPasswordConfirm";
 import AppLayout from "./components/AppLayout";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -25,7 +27,9 @@ function App() {
           <Route path="rateyourcv" element={<RateCV />} />
         </Route>
 
-        <Route path="activate/:uid/:token" element={<Activate />} />
+        <Route path="/activate/:uid/:token"  element={<Activate />} />
+
+
         <Route path="reset-password" element={<ResetPassword />} />
         <Route
           path="password/reset/confirm/:uid/:token"
@@ -33,9 +37,11 @@ function App() {
         />
 
         <Route path="login" element={<LogIn />} />
+        
         <Route path="signup" element={<SignUp />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   );
 }

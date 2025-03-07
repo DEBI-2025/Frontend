@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Validation from "../validation"; 
+import { toast } from "react-toastify";
 
 export function useSignUp() {
   const navigate = useNavigate();
@@ -30,17 +31,21 @@ export function useSignUp() {
       return response.data;
     },
     onSuccess: () => {
-      alert("Sign up successful! Please login.");
+      toast.success("Sign up successful! Please login.");
       navigate("/login");
     },
     onError: (error) => {
-      console.error("Error signing up:", error);
-      alert("An error occurred during sign up. Please try again.");
+      console.error("Error signing up:", error.response.data);
+      toast.error("An error occurred during sign up. Please try again.");
+      setErrors(error.response.data); 
     },
   });
 
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
+    if (errors[event.target.name]) {
+      setErrors({ ...errors, [event.target.name]: "" });
+    }
   };
 
   const handleSubmit = (e) => {

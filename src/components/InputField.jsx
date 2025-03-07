@@ -8,6 +8,9 @@ function InputField({
   margin,
   value,
   onChange,
+  toggle,     
+  onToggle,
+  toggleIcon,
 }) {
   return (
     <InputContainer>
@@ -20,6 +23,12 @@ function InputField({
         value={value}
         onChange={onChange}
       />
+      {toggle && (<ToggleIcon onClick = {onToggle}>
+        {toggleIcon}
+      </ToggleIcon>
+        )
+
+      }
     </InputContainer>
   );
 }
@@ -70,4 +79,13 @@ const Field = styled.input`
   @media (max-width: 550px) {
     margin-bottom: 0.5rem;
   }
+`;
+const ToggleIcon = styled.div`
+  position: absolute;
+  top: 45%;
+  right: 1rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #555;
+  font-size: 1.4rem;
 `;

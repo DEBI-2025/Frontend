@@ -8,7 +8,9 @@ import Quiz from "./pages/Quiz";
 import Tips from "./pages/Tips";
 import QuestionBank from "./pages/QuestionBank";
 import RateCV from "./pages/RateCV";
-// import Activate from "./pages/auth/Activate";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+ import Activate from "./pages/auth/Activate";
 // import ResetPassword from "./pages/auth/ResetPassword";
 // import ResetPasswordConfirm from "./pages/auth/ResetPasswordConfirm";
 import AppLayout from "./components/AppLayout";
@@ -41,6 +43,8 @@ function App() {
                 </PrivateRoute>
               }
             />
+            <Route path="/activate/:uid/:token"  element={<Activate />} />
+
             <Route path="tips" element={<Tips />} />
             <Route
               path="questionbank"
@@ -77,6 +81,7 @@ function App() {
           },
         }}
       />
+      <ToastContainer />
     </QueryClientProvider>
   );
 }

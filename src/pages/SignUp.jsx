@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -9,10 +10,18 @@ import IconAndTitle from "../components/IconAndTitle";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
 import { useSignUp } from "../API/signUp";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function SignUp() {
   const { values, errors, handleChange, handleSubmit, isLoading } = useSignUp();
-
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+const toggleShowPassword =() =>{
+  setShowPassword((prev) => !prev)
+}
+const toggleShowConfirmPassword = () => {
+  setShowConfirmPassword((prev) => !prev);
+};
   return (
     <Container
     // as={motion.div}
@@ -40,6 +49,7 @@ function SignUp() {
         <Title>Register with us!</Title>
         <Form onSubmit={handleSubmit}>
           <RowWrapper>
+          <div>
             <InputField
               icon={Person}
               placeholder="First Name"
@@ -50,6 +60,8 @@ function SignUp() {
               onChange={handleChange}
             />
             {errors.firstName && <ErrorMsg>{errors.firstName}</ErrorMsg>}
+            </div>
+            <div>
             <InputField
               icon={Person}
               placeholder="Last Name"
@@ -60,6 +72,7 @@ function SignUp() {
               onChange={handleChange}
             />
             {errors.lastName && <ErrorMsg>{errors.lastName}</ErrorMsg>}
+            </div>
           </RowWrapper>
           <InputField
             icon={Email}
@@ -91,15 +104,20 @@ function SignUp() {
           />
           {errors.dateOfBirth && <ErrorMsg>{errors.dateOfBirth}</ErrorMsg>}
 
-          <InputField
-            icon={Lock}
-            placeholder="Password"
-            name="password"
-            type="password"
-            margin={"1rem"}
-            value={values.password}
-            onChange={handleChange}
-          />
+          
+            <InputField
+              icon={Lock}
+              placeholder="Password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              margin={"1rem"}
+              value={values.password}
+              onChange={handleChange}
+              toggle={true} 
+              onToggle={toggleShowPassword} 
+              toggleIcon={showPassword ?<FaEye />  :<FaEyeSlash /> } 
+
+            />
           {errors.password && <ErrorMsg>{errors.password}</ErrorMsg>}
 
           <InputField
@@ -110,6 +128,10 @@ function SignUp() {
             margin={"1rem"}
             value={values.confirmPassword}
             onChange={handleChange}
+            toggle={true} 
+            onToggle={toggleShowConfirmPassword} 
+            toggleIcon={showConfirmPassword ?<FaEye />  :<FaEyeSlash /> } 
+
           />
           {errors.confirmPassword && (
             <ErrorMsg>{errors.confirmPassword}</ErrorMsg>
@@ -185,8 +207,8 @@ const RowWrapper = styled.div`
 `;
 
 const ErrorMsg = styled.p`
-  font-size: 13px;
-  margin: 2px 0 0 0;
+  font-size: 14px;
+  margin: 1px 0 1px 0;
   color: red;
 `;
 

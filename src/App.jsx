@@ -18,6 +18,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import PrivateRoute from "./components/PrivateRoute";
+import TechBank from "./pages/TechBank";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -53,7 +54,14 @@ function App() {
                   <QuestionBank />
                 </PrivateRoute>
               }
-            />
+            /><Route
+            path="technical-questions"
+            element={
+              <PrivateRoute>
+                <TechBank />
+              </PrivateRoute>
+            }
+          />
             <Route path="rateyourcv" element={<RateCV />} />
           </Route>
           <Route path="login" element={<LogIn />} />

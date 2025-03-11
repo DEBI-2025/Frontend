@@ -25,9 +25,7 @@ function Question({ question }) {
           <AnswerText>- {question.answer}</AnswerText>
         </AnswerContainer>
       </QuestionDiv>
-      <hr
-        style={{ width: "90%", borderColor: "#6A0DAD4D", borderWidth: "1.5px" }}
-      />
+      <hr style={{ borderColor: "#6A0DAD4D", borderWidth: "1.5px" }} />
     </>
   );
 }
@@ -35,7 +33,7 @@ function Question({ question }) {
 export default Question;
 
 const QuestionDiv = styled.div`
-  margin: 2rem 0 2rem 4.8rem;
+  margin: 2rem 0;
 `;
 
 const QuestionTitle = styled.div`
@@ -58,7 +56,6 @@ const AnswerText = styled.p`
 const BlurDiv = styled.div`
   position: absolute;
   top: 0;
-  /* left: 1rem; */
   width: 100%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0.334);

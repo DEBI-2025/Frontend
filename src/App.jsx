@@ -6,6 +6,7 @@ import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import Quiz from "./pages/Quiz";
 import Tips from "./pages/Tips";
+import HrPage from "./pages/Hrpage";
 import QuestionBank from "./pages/QuestionBank";
 import RateCV from "./pages/RateCV";
 import { ToastContainer } from "react-toastify";
@@ -46,6 +47,7 @@ function App() {
             <Route path="/activate/:uid/:token"  element={<Activate />} />
 
             <Route path="tips" element={<Tips />} />
+            <Route path="hrPage" element={<HrPage />} />
             <Route
               path="questionbank"
               element={

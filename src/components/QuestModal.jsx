@@ -2,9 +2,16 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import { X } from "lucide-react";
 import Mindphoto  from '../images/Mindphoto.png';
-import Technical  from '../images/Technical.png'
+import Technical  from '../images/Technical.png';
+import { useNavigate } from "react-router-dom";
 const QuestModal = ({isOpen ,onClose}) =>{
+    const navigate = useNavigate();
     if(!isOpen) return null ;
+    const handleNavigate =(path)=>{
+onClose();
+navigate(path);
+    };
+    
     return (
         <Overlay>
             <ModalContainer
@@ -25,14 +32,14 @@ const QuestModal = ({isOpen ,onClose}) =>{
 
 
 <OptionsContainer>
-  <OptionButton bgColor="#F7C5CC59">
+  <OptionButton bgColor="#F7C5CC59" onClick={()=> handleNavigate("/HrPage")}> 
     <Img src={Mindphoto} alt="Mind Photo" />
 <TextWrapper>
 HR & Behavioral
 </TextWrapper>
    
   </OptionButton>
-  <OptionButton bgColor="#d9b2ff">
+  <OptionButton bgColor="#C3A2F380" onClick={()=> handleNavigate("/quiz")}>
   <Img src={Technical} alt="Technical Photo" />
   <TextWrapper>
   Technical
@@ -51,6 +58,7 @@ export default QuestModal;
 
 
 const Overlay = styled.div `
+ backdrop-filter: blur(8px);
 position:fixed ;
 inset:0;
 display:flex;
@@ -58,6 +66,7 @@ align-items:center;
 justify-content :center;
 background:rgba(0, 0, 0, 0.5);
 z-index:50;
+overflow: hidden;
 `;
 const ModalContainer = styled(motion.div)`
 background:white;
@@ -138,7 +147,7 @@ background: #6A0DAD;
 border:1px solid #6A0DAD;
 border-radius:20px;
 color:white;
-margin-top:20px;
+margin-top:1.9rem;
 display: flex; 
 text-align: center; 
  justify-content: center;

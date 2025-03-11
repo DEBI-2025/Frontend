@@ -4,12 +4,14 @@ import styled from "styled-components";
 import { FaBars, FaTimes } from "react-icons/fa";
 import IconAndTitle from "./IconAndTitle";
 import { isAuthenticated } from "../utils/isAuth";
+import QuestModal from "./QuestModal";
 
 function NavBar() {
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [modalOpen ,setModalOpen] = useState(false);
   // console.log(isAuthenticated());
 
   return (
@@ -28,8 +30,12 @@ function NavBar() {
           <NavLinkStyled
             to="/quiz"
             className={isActive("/quiz") ? "active" : ""}
+            onClick={(e)=>{
+              e.preventDefault();
+              setModalOpen(true);
+            }}
           >
-            Quiz
+            Questions
           </NavLinkStyled>
         </Li>
         <Li>
@@ -46,7 +52,12 @@ function NavBar() {
       ) : (
         <DivAlt/>
       )}
+
+<QuestModal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+      
+      </QuestModal>
     </Nav>
+   
   );
 }
 

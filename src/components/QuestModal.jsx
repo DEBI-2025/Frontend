@@ -1,10 +1,9 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import { X } from "lucide-react";
-import Mindphoto  from '../images/Mindphoto.png';
-import Technical  from '../images/Technical.png';
+
 import { useNavigate } from "react-router-dom";
-const QuestModal = ({isOpen ,onClose}) =>{
+const QuestModal = ({isOpen ,onClose,options, title}) =>{
     const navigate = useNavigate();
     if(!isOpen) return null ;
     const handleNavigate =(path)=>{
@@ -26,13 +25,20 @@ navigate(path);
                 </CloseButton>
 
                 <OptionText>
-                Which interview are you preparing for?
+                
+                {title}
                 </OptionText>
             
 
 
 <OptionsContainer>
-  <OptionButton bgColor="#F7C5CC59" onClick={()=> handleNavigate("/HrPage")}> 
+{options.map(({ label, image, bgColor, path }, index) => (
+                        <OptionButton key={index} bgColor={bgColor} onClick={() => handleNavigate(path)}>
+                            <Img src={image} alt={label} />
+                            <TextWrapper>{label}</TextWrapper>
+                        </OptionButton>
+                    ))}
+  {/* <OptionButton bgColor="#F7C5CC59" onClick={()=> handleNavigate("/HrPage")}> 
     <Img src={Mindphoto} alt="Mind Photo" />
 <TextWrapper>
 HR & Behavioral
@@ -45,7 +51,7 @@ HR & Behavioral
   Technical
   </TextWrapper>
     
-  </OptionButton>
+  </OptionButton> */}
 </OptionsContainer>
 </ModalContainer>
 </Overlay>
@@ -77,6 +83,22 @@ position:relative;
 text-align:center;
 width:700px;
 height:400px;
+ @media (max-width: 1024px) {
+    width: 80%;
+    height: auto;
+  }
+ @media (max-width: 768px) {
+    width: 90%;  
+    height: auto; 
+    padding: 15px;
+  }
+
+  @media (max-width: 480px) {
+    width: 92%;  
+    height: auto; 
+    padding: 10px;
+    border-radius: 8px;
+  }
 `;
 const CloseButton = styled.button`
   position: absolute;
@@ -96,7 +118,22 @@ const OptionsContainer = styled.div`
   align-items: center; 
   gap: 60px; 
   margin-top: 2.7rem;
-  width: 100%
+  width: 100%;
+   @media (max-width: 1024px) {
+    gap: 60px;
+  }
+  @media (max-width: 768px) {
+    
+    gap: 30px;
+  }
+    @media (max-width: 1024px) {
+    
+    gap: 60px;
+  }
+
+  @media (max-width: 480px) {
+    gap: 20px;
+  }
 `;
 
 const OptionButton = styled.button`
@@ -118,26 +155,47 @@ const OptionButton = styled.button`
   &:hover {
     transform: scale(1.05);
   }
+     @media (max-width: 1024px) {
+    width: 200px;
+    height: 180px;
+  }
+     @media (max-width: 768px) {
+    width: 180px;
+    height: 170px;
+  }
+
+  @media (max-width: 480px) {
+    width: 150px;
+    height: 150px;
+  }
 `;
 
 const OptionText = styled.h1`
   margin-top: 10%;
   font-family: Roboto Slab; 
+   @media (max-width: 768px) {
+    font-size: 18px;
+  }
+  @media (max-width: 1024px) {
+    font-size: 20px;
+  }
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 
 `;
 
 const Img= styled.img`
   width: 57px;
-  @media (max-width: 1024px) {
-    width: 10.33%;
+   @media (max-width: 1024px) {
+    width: 50px;
   }
-  @media (max-width: 768px) {
-    width: 13.1%;
+ @media (max-width: 768px) {
+    width: 50px;
   }
-  @media (max-width: 550px) {
-    width: 26.8%;
 
-    /* display: none; */
+  @media (max-width: 480px) {
+    width: 40px;
   }
 `;
 const TextWrapper = styled.div`
@@ -154,6 +212,19 @@ text-align: center;
   align-items: center;
    font-family: Literata; 
    font-size:16px;
-
-
-`
+     @media (max-width: 1024px) {
+    width: 160px;
+    height: 24px;
+    font-size: 15px;
+  }
+   @media (max-width: 768px) {
+    width: 150px;
+    height: 22px;
+    font-size: 14px;
+  }
+  @media (max-width: 480px) {
+    width: 120px;
+    height: 20px;
+    font-size: 12px;
+  }
+`;

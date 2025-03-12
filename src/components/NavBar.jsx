@@ -5,6 +5,8 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import IconAndTitle from "./IconAndTitle";
 import { isAuthenticated } from "../utils/isAuth";
 import QuestModal from "./QuestModal";
+import Mindphoto  from '../images/Mindphoto.png';
+import Technical  from '../images/Technical.png';
 
 function NavBar() {
   const location = useLocation();
@@ -53,8 +55,23 @@ function NavBar() {
         <DivAlt/>
       )}
 
-<QuestModal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
-      
+<QuestModal isOpen={modalOpen}
+ onClose={() => setModalOpen(false)}
+ title="Which interview are you preparing for? ">
+   options={[
+          {
+            label: "HR & Behavioral",
+            bgColor: "#F7C5CC59",
+            imgSrc: {Mindphoto}, 
+            navigateTo: "/HrPage",
+          },
+          {
+            label: "Technical",
+            bgColor: "#C3A2F380",
+            imgSrc: {Technical},
+            navigateTo: "/quiz",
+          },
+        ]}
       </QuestModal>
     </Nav>
    

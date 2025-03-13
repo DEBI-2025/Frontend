@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes ,FaUserCircle } from "react-icons/fa";
 import IconAndTitle from "./IconAndTitle";
 import { isAuthenticated } from "../utils/isAuth";
 import QuestModal from "./QuestModal";
-import Mindphoto  from '../images/Mindphoto.png';
-import Technical  from '../images/Technical.png';
+
 
 function NavBar() {
   const location = useLocation();
@@ -14,6 +13,18 @@ function NavBar() {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen ,setModalOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  console.log("Before:", document.cookie);
+  const handleLogout = () => {
+    const deleteCookie = (name) => {
+      document.cookie = `${name}=; Max-Age=0; path=/;`;
+  };
+  deleteCookie("innerViews-refresh-token");
+deleteCookie("innerViews-access-token");
+    navigate("/login"); 
+    console.log("After:", document.cookie);
+  };
+  
   // console.log(isAuthenticated());
 
   return (
@@ -52,26 +63,23 @@ function NavBar() {
       {!isAuthenticated() ? (
         <SignButton onClick={() => navigate("/login")}>Sign In</SignButton>
       ) : (
-        <DivAlt/>
+        <ProfileWrapper>
+    
+    <ProfileIcon onClick={() => setDropdownOpen(!dropdownOpen)} />
+    
+    {dropdownOpen && (
+      <DropdownMenu>
+        <DropdownItem onClick={handleLogout}>Logout</DropdownItem>
+      </DropdownMenu>
+    )}
+  </ProfileWrapper>
       )}
 
 <QuestModal isOpen={modalOpen}
  onClose={() => setModalOpen(false)}
- title="Which interview are you preparing for? ">
-   options={[
-          {
-            label: "HR & Behavioral",
-            bgColor: "#F7C5CC59",
-            imgSrc: {Mindphoto}, 
-            navigateTo: "/HrPage",
-          },
-          {
-            label: "Technical",
-            bgColor: "#C3A2F380",
-            imgSrc: {Technical},
-            navigateTo: "/quiz",
-          },
-        ]}
+ >
+   
+        
       </QuestModal>
     </Nav>
    
@@ -207,9 +215,73 @@ const SignButton = styled.button`
   }
 `;
 
-const DivAlt = styled.div`
-  width: 6.5rem;
+const ProfileWrapper = styled.div`
+  position: relative;
+  cursor: pointer;
+`;
+
+const ProfileIcon = styled(FaUserCircle)`
+  font-size: 2rem;
+  color: #6a0dad;
+  cursor: pointer;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem; 
+  }
+`;
+
+const DropdownMenu = styled.div`
+  position: absolute;
+  top: 2.5rem;
+  right: 0;
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0;
+  text-align: center;
+  z-index: 10;
+
+  width: 8rem; 
+  font-size: 1.2rem; 
+  height: auto;
+
+  
+  @media (max-width: 1024px) {
+    width: 6.5rem;
+    height: 2.3rem;
+    font-size: 1.1rem;
+  }
+
+  /* Smaller tablets & larger mobile screens */
+  @media (max-width: 768px) {
+    width: 5.5rem;
+    height: 2.2rem;
+    font-size: 1.05rem;
+  }
+
+  /* Hide on very small screens */
   @media (max-width: 550px) {
     display: none;
+  }
+`;
+
+const DropdownItem = styled.div`
+  padding: 0.5rem 1rem;
+  color: #6a0dad;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #f7c5cc;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.4rem 0.8rem;
   }
 `;

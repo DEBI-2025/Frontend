@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import { X } from "lucide-react";
+import Mindphoto  from '../images/Mindphoto.png';
+import Technical  from '../images/Technical.png';
 
 import { useNavigate } from "react-router-dom";
-const QuestModal = ({isOpen ,onClose,options, title}) =>{
+const QuestModal = ({isOpen ,onClose}) =>{
     const navigate = useNavigate();
     if(!isOpen) return null ;
     const handleNavigate =(path)=>{
@@ -26,32 +28,32 @@ navigate(path);
 
                 <OptionText>
                 
-                {title}
+               Which interview are you preparing for?
                 </OptionText>
             
 
 
 <OptionsContainer>
-{options.map(({ label, image, bgColor, path }, index) => (
+{/* {options?.map(({ label, image, bgColor, path }, index) => (
                         <OptionButton key={index} bgColor={bgColor} onClick={() => handleNavigate(path)}>
                             <Img src={image} alt={label} />
                             <TextWrapper>{label}</TextWrapper>
                         </OptionButton>
-                    ))}
-  {/* <OptionButton bgColor="#F7C5CC59" onClick={()=> handleNavigate("/HrPage")}> 
+                    ))} */}
+  <OptionButton bgColor="#F7C5CC59" onClick={()=> handleNavigate("/HrPage")}> 
     <Img src={Mindphoto} alt="Mind Photo" />
 <TextWrapper>
 HR & Behavioral
 </TextWrapper>
    
   </OptionButton>
-  <OptionButton bgColor="#C3A2F380" onClick={()=> handleNavigate("/quiz")}>
+  <OptionButton bgColor="#C3A2F380" onClick={()=> handleNavigate("/questionbank")}>
   <Img src={Technical} alt="Technical Photo" />
   <TextWrapper>
   Technical
   </TextWrapper>
     
-  </OptionButton> */}
+  </OptionButton>
 </OptionsContainer>
 </ModalContainer>
 </Overlay>
@@ -137,7 +139,7 @@ const OptionsContainer = styled.div`
 `;
 
 const OptionButton = styled.button`
-  background: ${(props) => props.bgColor || "#f5f5f5"};
+ background: ${(props) => props.bgColor || "#f5f5f5"};
   width: 210px;
   height:190px;
   padding: 15px;

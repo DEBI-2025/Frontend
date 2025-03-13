@@ -2,7 +2,7 @@
 function HrPage() {
     return (
         <div>
-            Hr & Behavioral
+        
         </div>
     )
 }

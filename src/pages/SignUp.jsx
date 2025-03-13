@@ -3,8 +3,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { Person, Phone, Email, Lock, CalendarToday } from "@mui/icons-material";
-import Validation from "../validation"; // Custom validation function
-import axios from "axios";
+// import Validation from "../validation"; 
+// import axios from "axios";
 import LeftPanel from "../components/LeftPanel";
 import IconAndTitle from "../components/IconAndTitle";
 import InputField from "../components/InputField";
@@ -124,7 +124,7 @@ const toggleShowConfirmPassword = () => {
             icon={Lock}
             placeholder="Confirm Password"
             name="confirmPassword"
-            type="password"
+            type={showConfirmPassword ? "text" : "password"}
             margin={"1rem"}
             value={values.confirmPassword}
             onChange={handleChange}

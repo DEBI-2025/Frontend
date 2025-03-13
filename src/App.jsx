@@ -57,9 +57,9 @@ function App() {
             /><Route
             path="technical-questions"
             element={
-              <PrivateRoute>
+              // <PrivateRoute>
                 <TechBank />
-              </PrivateRoute>
+              // </PrivateRoute>
             }
           />
             <Route path="rateyourcv" element={<RateCV />} />

@@ -18,7 +18,7 @@ function MultiplePages({ currentPage, totalPages, onPageChange }) {
         <PageButton
           key={pageNumber}
           onClick={() => onPageChange(pageNumber)}
-          active={currentPage === pageNumber}
+          $active={currentPage === pageNumber}
         >
           {pageNumber}
         </PageButton>
@@ -47,8 +47,8 @@ const PageButton = styled.button`
   padding: 8px 12px;
   margin: 0 5px;
   border: none;
-  background-color: ${(props) => (props.active ? "#6a0dad" : "white")};
-  color: ${(props) => (props.active ? "white" : "#6a0dad")};
+  background-color: ${(props) => (props.$active ? "#6a0dad" : "white")};
+  color: ${(props) => (props.$active ? "white" : "#6a0dad")};
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.3s ease;

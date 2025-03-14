@@ -35,7 +35,7 @@ export default [
       ],
       "no-unused-vars": "warn",
       "react/prop-types": "off",
-      quotes:"warn",
+      // quotes:"warn",
     },
   },
 ];

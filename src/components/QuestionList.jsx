@@ -4,7 +4,7 @@ import styled, { keyframes } from "styled-components";
 import MultiplePages from "./MultiplePages";
 import Cookies from "js-cookie";
 
-function QuestionList() {
+function QuestionList({ endpoint }) {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -21,7 +21,7 @@ function QuestionList() {
           throw new Error("No access token found. Please log in.");
         }
 
-        const response = await fetch("http://localhost:8000/api/questions/", {
+        const response = await fetch(endpoint, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -51,7 +51,7 @@ function QuestionList() {
     };
 
     fetchQuestions();
-  }, []);
+  }, [endpoint]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);

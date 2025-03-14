@@ -8,7 +8,7 @@ import Button from "../components/Button";
 import { useLogin } from "../logic/Auth/useLogin";
 
 function LogIn() {
-  const [email, setEmail] = useState("samasokkar15@gmail.com");
+  const [email, setEmail] = useState("samaayman46@yahoo.com");
   const [password, setPassword] = useState("sama1234");
 
   const { login, isLoading } = useLogin();

@@ -1,79 +1,117 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Select from "react-select";
 import styled from "styled-components";
+import Cookies from "js-cookie";
 
 function DependentDropDowns() {
-  const topics = [
-    {
-      value: "science",
-      label: "Science",
-      fields: ["Physics", "Chemistry", "Biology", "Astronomy"],
-    },
-    {
-      value: "technology",
-      label: "Technology",
-      fields: [
-        "Software Development",
-        "Hardware Engineering",
-        "Data Science",
-        "AI",
-      ],
-    },
-    {
-      value: "arts",
-      label: "Arts",
-      fields: ["Painting", "Music", "Literature", "Sculpture"],
-    },
-    {
-      value: "business",
-      label: "Business",
-      fields: ["Marketing", "Finance", "Management", "Sales"],
-    },
-  ];
+  const [fields, setFields] = useState([]);
+  const [topics, setTopics] = useState([]);
+  const [selectedField, setSelectedField] = useState(null);
+  const [selectedTopics, setSelectedTopics] = useState([]);
 
-  const [selectedTopic, setSelectedTopic] = useState(null);
-  const [selectedFields, setSelectedFields] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = Cookies.get("innerViews-access-token");
 
-  const handleTopicChange = (selectedOption) => {
-    setSelectedTopic(selectedOption);
-    setSelectedFields([]);
-  };
+        if (!token) {
+          throw new Error("No access token found. Please log in.");
+        }
 
-  const handleFieldChange = (selectedOptions) => {
-    setSelectedFields(selectedOptions);
-  };
+        const response = await fetch("http://localhost:8000/api/fields/", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        });
 
-  const getFieldOptions = () => {
-    if (!selectedTopic) {
-      return [];
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setFields(
+          data.map((field) => ({
+            value: field.id,
+            label: field.name,
+          }))
+        );
+      } catch (error) {
+        console.error("Error fetching fields:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleFieldChange = (selectedOption) => {
+    setSelectedField(selectedOption);
+    setSelectedTopics([]);
+
+    if (selectedOption) {
+      const fetchTopics = async () => {
+        try {
+          const token = Cookies.get("innerViews-access-token");
+
+          if (!token) {
+            throw new Error("No access token found. Please log in.");
+          }
+
+          const response = await fetch(
+            `http://localhost:8000/api/topics?field=${selectedOption.value}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `JWT ${token}`,
+              },
+            }
+          );
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const data = await response.json();
+          setTopics(
+            data.map((topic) => ({
+              value: topic.id,
+              label: topic.name,
+            }))
+          );
+        } catch (error) {
+          console.error("Error fetching topics:", error);
+        }
+      };
+      fetchTopics();
+    } else {
+      setTopics([]);
     }
-    return selectedTopic.fields.map((field) => ({
-      value: field.toLowerCase().replace(/ /g, "-"),
-      label: field,
-    }));
+  };
+
+  const handleTopicChange = (selectedOptions) => {
+    setSelectedTopics(selectedOptions);
   };
 
   return (
     <Wrapper>
       <SelectDiv>
-        <SelectLabel>Select Topic:</SelectLabel>
+        <SelectLabel>Select Field:</SelectLabel>
         <Select
-          options={topics}
-          value={selectedTopic}
-          onChange={handleTopicChange}
+          options={fields}
+          value={selectedField}
+          onChange={handleFieldChange}
           isClearable
         />
       </SelectDiv>
 
       <SelectDiv>
-        <SelectLabel>Select Fields:</SelectLabel>
+        <SelectLabel>Select Topics:</SelectLabel>
         <Select
-          options={getFieldOptions()}
-          value={selectedFields}
-          onChange={handleFieldChange}
+          options={topics}
+          value={selectedTopics}
+          onChange={handleTopicChange}
           isMulti
           isClearable
-          isDisabled={!selectedTopic}
+          isDisabled={!selectedField}
         />
       </SelectDiv>
     </Wrapper>
@@ -81,6 +119,7 @@ function DependentDropDowns() {
 }
 
 export default DependentDropDowns;
+
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-around;

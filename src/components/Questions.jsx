@@ -1,7 +1,15 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-function Question({ question }) {
+function Question({
+  // key,
+  questionText,
+  answer,
+  // isFlagged,
+  // field,
+  // topic,
+  // level,
+}) {
   const [showAnswer, setShowAnswer] = useState(false);
 
   const handleShowAnswer = () => {
@@ -11,25 +19,27 @@ function Question({ question }) {
   return (
     <>
       <QuestionDiv>
-        <QuestionTitle>
-          {question.id}. {question.questionText}
-        </QuestionTitle>
+        <QuestionTitle>{questionText}</QuestionTitle>
+        {/* <Metadata>
+      <span>Field: {field}</span>
+      <span>Topic: {topic}</span>
+      <span>Level: {level}</span>
+    </Metadata> */}
         <AnswerContainer>
+          <BlurredAnswer show={showAnswer}>- {answer}</BlurredAnswer>
           {!showAnswer && (
-            <BlurDiv>
+            <ButtonWrapper>
               <ShowAnswerButton onClick={handleShowAnswer}>
                 View Answer
               </ShowAnswerButton>
-            </BlurDiv>
+            </ButtonWrapper>
           )}
-          <AnswerText>- {question.answer}</AnswerText>
         </AnswerContainer>
       </QuestionDiv>
       <hr style={{ borderColor: "#6A0DAD4D", borderWidth: "1.5px" }} />
     </>
   );
 }
-
 export default Question;
 
 const QuestionDiv = styled.div`
@@ -43,26 +53,26 @@ const QuestionTitle = styled.div`
 
 const AnswerContainer = styled.div`
   position: relative;
+  min-height: 50px;
 `;
 
-const AnswerText = styled.p`
+const BlurredAnswer = styled.p`
   font-size: 1.02rem;
   color: #333;
-  margin-left: 1rem;
   max-width: 90%;
   line-height: 1.5;
+  filter: ${({ show }) => (show ? "none" : "blur(4px)")};
+  transition: filter 0.3s ease-in-out;
+  position: relative;
+  z-index: 1;
 `;
 
-const BlurDiv = styled.div`
+const ButtonWrapper = styled.div`
   position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.334);
-  backdrop-filter: blur(3px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
 `;
 
 const ShowAnswerButton = styled.button`

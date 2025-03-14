@@ -1,25 +1,68 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-
+import Cookies from "js-cookie";
 function Levels() {
-  const [selectedLevel, setSelectedLevel] = useState("Entry-Level");
+  const [levels, setLevels] = useState([]);
+  const [selectedLevel, setSelectedLevel] = useState(null);
+  const [error, setError] = useState(null);
 
+  useEffect(() => {
+    const fetchLevels = async () => {
+      try {
+        const token = Cookies.get("innerViews-access-token"); 
+  
+        if (!token) {
+          throw new Error("No access token found. Please log in.");
+        }
+  
+        const response = await fetch("http://localhost:8000/api/levels/", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        });
+  
+        if (!response.ok)
+          throw new Error(`HTTP error! Status ${response.status}`);
+  
+        const data = await response.json();
+  
+        if (Array.isArray(data)) {
+          setLevels(data);
+          setSelectedLevel(data.length > 0 ? data[0].name : null);
+        } else {
+          throw new Error("Unexpected API response format");
+        }
+      } catch (err) {
+        setError("Failed to load levels. Please try again.");
+      }
+    };
+  
+    fetchLevels();
+  }, []);
+  
   const handleLevelClick = (level) => {
     setSelectedLevel(level);
     console.log("Selected Level:", level);
   };
+  if (error) return <p>{error}</p>;
 
   return (
     <Ul>
-      {["Entry-Level", "Junior", "Mid-Level", "Senior"].map((level) => (
-        <Li
-          key={level}
-          onClick={() => handleLevelClick(level)}
-          $isSelected={selectedLevel === level}
-        >
-          {level}
-        </Li>
-      ))}
+      {levels.length > 0 ? (
+        levels.map((level) => (
+          <Li
+            key={level.id}
+            onClick={() => handleLevelClick(level.name)}
+            $isSelected={selectedLevel === level.name}
+          >
+            {level.name}
+          </Li>
+        ))
+      ) : (
+        <p>Loading levels...</p>
+      )}
     </Ul>
   );
 }

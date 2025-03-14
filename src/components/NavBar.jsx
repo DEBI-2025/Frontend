@@ -1,30 +1,29 @@
 import { useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { FaBars, FaTimes ,FaUserCircle } from "react-icons/fa";
+import { FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
 import IconAndTitle from "./IconAndTitle";
 import { isAuthenticated } from "../utils/isAuth";
 import QuestModal from "./QuestModal";
-
 
 function NavBar() {
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [modalOpen ,setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   console.log("Before:", document.cookie);
   const handleLogout = () => {
     const deleteCookie = (name) => {
       document.cookie = `${name}=; Max-Age=0; path=/;`;
-  };
-  deleteCookie("innerViews-refresh-token");
-deleteCookie("innerViews-access-token");
-    navigate("/login"); 
+    };
+    deleteCookie("innerViews-refresh-token");
+    deleteCookie("innerViews-access-token");
+    navigate("/login");
     console.log("After:", document.cookie);
   };
-  
+
   // console.log(isAuthenticated());
 
   return (
@@ -41,9 +40,9 @@ deleteCookie("innerViews-access-token");
         </Li>
         <Li>
           <NavLinkStyled
-            to="/quiz"
+            to="/technical-questions"
             className={isActive("/quiz") ? "active" : ""}
-            onClick={(e)=>{
+            onClick={(e) => {
               e.preventDefault();
               setModalOpen(true);
             }}
@@ -64,25 +63,21 @@ deleteCookie("innerViews-access-token");
         <SignButton onClick={() => navigate("/login")}>Sign In</SignButton>
       ) : (
         <ProfileWrapper>
-    
-    <ProfileIcon onClick={() => setDropdownOpen(!dropdownOpen)} />
-    
-    {dropdownOpen && (
-      <DropdownMenu>
-        <DropdownItem onClick={handleLogout}>Logout</DropdownItem>
-      </DropdownMenu>
-    )}
-  </ProfileWrapper>
+          <ProfileIcon onClick={() => setDropdownOpen(!dropdownOpen)} />
+
+          {dropdownOpen && (
+            <DropdownMenu>
+              <DropdownItem onClick={handleLogout}>Logout</DropdownItem>
+            </DropdownMenu>
+          )}
+        </ProfileWrapper>
       )}
 
-<QuestModal isOpen={modalOpen}
- onClose={() => setModalOpen(false)}
- >
-   
-        
-      </QuestModal>
+      <QuestModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+      ></QuestModal>
     </Nav>
-   
   );
 }
 
@@ -231,7 +226,7 @@ const ProfileIcon = styled(FaUserCircle)`
   }
 
   @media (max-width: 768px) {
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
   }
 `;
 
@@ -246,11 +241,10 @@ const DropdownMenu = styled.div`
   text-align: center;
   z-index: 10;
 
-  width: 8rem; 
-  font-size: 1.2rem; 
+  width: 8rem;
+  font-size: 1.2rem;
   height: auto;
 
-  
   @media (max-width: 1024px) {
     width: 6.5rem;
     height: 2.3rem;

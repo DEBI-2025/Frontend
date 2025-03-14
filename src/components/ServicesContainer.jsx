@@ -25,7 +25,7 @@ function ServicesContainer() {
         }
         button={"Start Practicing!"}
         bgcolor="#C3A2F380"
-        link="/questionbank"
+        link="/technical-questions"
       />{" "}
       <ServiceCard
         icon={ThumbsUpDownTwoToneIcon}

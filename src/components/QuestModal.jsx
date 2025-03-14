@@ -47,7 +47,7 @@ HR & Behavioral
 </TextWrapper>
    
   </OptionButton>
-  <OptionButton bgColor="#C3A2F380" onClick={()=> handleNavigate("/questionbank")}>
+  <OptionButton bgColor="#C3A2F380" onClick={()=> handleNavigate("/technical-questions")}>
   <Img src={Technical} alt="Technical Photo" />
   <TextWrapper>
   Technical
@@ -152,7 +152,7 @@ const OptionButton = styled.button`
   border: none;
   transition: 0.2s;
   marigin-top:1.5rem;
-  gap:20px
+  gap:20px;
   
   &:hover {
     transform: scale(1.05);

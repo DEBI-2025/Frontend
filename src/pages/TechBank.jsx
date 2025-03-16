@@ -12,8 +12,10 @@ function TechBank() {
   return (
     <Wrapper>
       <DependentDropDowns
-        onFieldChange={(field) => setSelectedField(field)}
-        onTopicsChange={(topics) => setSelectedTopics(topics)}
+        onSelectionChange={({ field, topics }) => {
+          setSelectedField(field);
+          setSelectedTopics(topics);
+        }}
         selectedField={selectedField}
         selectedTopics={selectedTopics}
       />

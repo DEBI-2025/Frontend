@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Cookies from "js-cookie";
-function Levels() {
+function Levels({ onLevelChange }) {
   const [levels, setLevels] = useState([]);
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [error, setError] = useState(null);
@@ -30,7 +30,10 @@ function Levels() {
 
         if (Array.isArray(data)) {
           setLevels(data);
-          setSelectedLevel(data.length > 0 ? data[0].name : null);
+          if (data.length > 0) {
+            setSelectedLevel(data[0]);
+            onLevelChange(data[0]);
+          }
         } else {
           throw new Error("Unexpected API response format");
         }
@@ -44,6 +47,7 @@ function Levels() {
 
   const handleLevelClick = (level) => {
     setSelectedLevel(level);
+    onLevelChange(level);
     console.log("Selected Level:", level);
   };
   if (error) return <p>{error}</p>;
@@ -54,8 +58,8 @@ function Levels() {
         levels.map((level) => (
           <Li
             key={level.id}
-            onClick={() => handleLevelClick(level.name)}
-            $isSelected={selectedLevel === level.name}
+            onClick={() => handleLevelClick(level)}
+            $isSelected={selectedLevel?.id === level.id}
           >
             {level.name}
           </Li>

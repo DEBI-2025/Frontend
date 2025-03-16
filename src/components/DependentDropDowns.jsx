@@ -3,11 +3,13 @@ import Select from "react-select";
 import styled from "styled-components";
 import Cookies from "js-cookie";
 
-function DependentDropDowns() {
+function DependentDropDowns({
+  onSelectionChange,
+  selectedField,
+  selectedTopics,
+}) {
   const [fields, setFields] = useState([]);
   const [topics, setTopics] = useState([]);
-  const [selectedField, setSelectedField] = useState(null);
-  const [selectedTopics, setSelectedTopics] = useState([]);
 
   const fetchData = async (url, setDataCallback) => {
     try {
@@ -92,13 +94,12 @@ function DependentDropDowns() {
     }
   }, [selectedField]);
 
-  const handleFieldChange = (selectedOption) => {
-    setSelectedField(selectedOption);
-    setSelectedTopics([]);
+  const handleFieldChange = (field) => {
+    onSelectionChange({ field, topics: [] });
   };
 
-  const handleTopicChange = (selectedOptions) => {
-    setSelectedTopics(selectedOptions);
+  const handleTopicChange = (topics) => {
+    onSelectionChange({ field: selectedField, topics });
   };
 
   return (

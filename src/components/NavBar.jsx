@@ -13,7 +13,7 @@ function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  console.log("Before:", document.cookie);
+  // console.log("Before:", document.cookie);
   const handleLogout = () => {
     const deleteCookie = (name) => {
       document.cookie = `${name}=; Max-Age=0; path=/;`;
@@ -21,7 +21,7 @@ function NavBar() {
     deleteCookie("innerViews-refresh-token");
     deleteCookie("innerViews-access-token");
     navigate("/login");
-    console.log("After:", document.cookie);
+    // console.log("After:", document.cookie);
   };
 
   // console.log(isAuthenticated());

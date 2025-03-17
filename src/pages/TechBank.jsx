@@ -23,7 +23,11 @@ function TechBank() {
         style={{ width: "90%", borderColor: "#6A0DAD4D", borderWidth: "1.5px" }}
       />
       <LevelWrapper>
-        <Levels onLevelChange={(level) => setSelectedLevel(level)} />
+        <Levels
+          onLevelChange={(level) => {
+            setSelectedLevel(level);
+          }}
+        />
       </LevelWrapper>
       <hr
         style={{ width: "90%", borderColor: "#6A0DAD4D", borderWidth: "1.5px" }}
@@ -31,9 +35,9 @@ function TechBank() {
       <LevelWrapper>
         <QuestionList
           endpoint={"http://localhost:8000/api/questions/"}
-          field={selectedField?.value}
-          topics={selectedTopics.map((topic) => topic.value)}
-          level={selectedLevel?.id}
+          field={selectedField?.label}
+          topics={selectedTopics.map((topic) => topic.label)}
+          level={selectedLevel?.name}
         />
       </LevelWrapper>
     </Wrapper>

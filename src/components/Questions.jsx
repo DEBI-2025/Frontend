@@ -5,26 +5,34 @@ function Question({
   // key,
   questionText,
   answer,
+  field,
+  topic,
+  level,
   // isFlagged,
-  // field,
-  // topic,
-  // level,
 }) {
   const [showAnswer, setShowAnswer] = useState(false);
 
   const handleShowAnswer = () => {
     setShowAnswer(true);
   };
-
   return (
     <>
       <QuestionDiv>
         <QuestionTitle>{questionText}</QuestionTitle>
-        {/* <Metadata>
-      <span>Field: {field}</span>
-      <span>Topic: {topic}</span>
-      <span>Level: {level}</span>
-    </Metadata> */}
+        <Metadata>
+          <span>
+            <b>Field: </b>
+            {field}
+          </span>
+          <span>
+            <b>Topic: </b>
+            {topic}
+          </span>
+          <span>
+            <b>Level: </b>
+            {level}
+          </span>
+        </Metadata>
         <AnswerContainer>
           <BlurredAnswer show={showAnswer}>- {answer}</BlurredAnswer>
           {!showAnswer && (
@@ -49,6 +57,14 @@ const QuestionDiv = styled.div`
 const QuestionTitle = styled.div`
   font-size: 1.1rem;
   font-weight: 600;
+`;
+
+const Metadata = styled.div`
+  display: flex;
+  font-size: 0.7rem;
+  padding-top: 0.3rem;
+  color: #777;
+  gap: 0.5rem;
 `;
 
 const AnswerContainer = styled.div`

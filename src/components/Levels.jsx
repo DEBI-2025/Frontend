@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Cookies from "js-cookie";
 function Levels({ onLevelChange }) {
-  const [levels, setLevels] = useState([]);
   const [selectedLevel, setSelectedLevel] = useState(null);
+  const [levels, setLevels] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -77,13 +77,11 @@ const Ul = styled.ul`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* width: 60rem; */
   gap: 7rem;
   font-size: 1.4rem;
   padding: 0;
   margin: 0.5rem 0;
   list-style: none;
-  /* background-color: red; */
 `;
 
 const Li = styled.li`

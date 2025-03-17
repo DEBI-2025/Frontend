@@ -41,8 +41,7 @@ const ServiceDiv = styled.div`
 
   @media (max-width: 1024px) {
     height: 22%;
-  padding: 0 3rem;
-
+    padding: 0 3rem;
   }
   @media (max-width: 768px) {
     height: 20%;

@@ -5,11 +5,17 @@ import ServiceTitle from "../components/ServiceTitle";
 import ServicesContainer from "../components/ServicesContainer";
 import HomeFooter from "../components/HomeFooter";
 
-
 function Home() {
   return (
     <Wrapper>
-      <LandingText title={"Inner Views"} description={"AI-Powered Job Interview Simulator helps job seekers improve their interview skills through realistic simulations, AI-driven feedback,and expert tips. Users can practice answering industry-specific questions, receive instant evaluations, and enhance their responses with AI suggestions."} buttonText={"Start Practicing"} rightImg={landingImg}/>
+      <LandingText
+        title={"Inner Views"}
+        description={
+          "AI-Powered Job Interview Simulator helps job seekers improve their interview skills through realistic simulations, AI-driven feedback,and expert tips. Users can practice answering industry-specific questions, receive instant evaluations, and enhance their responses with AI suggestions."
+        }
+        buttonText={"Start Practicing"}
+        rightImg={landingImg}
+      />
       <ServiceTitle />
       <ServicesContainer />
       <HomeFooter />
@@ -20,7 +26,7 @@ function Home() {
 export default Home;
 
 const Wrapper = styled.div`
-  height:89.6%;
+  height: 89.6%;
   overflow-y: auto;
   margin-right: 0.2rem;
 

@@ -8,7 +8,7 @@ function InputField({
   margin,
   value,
   onChange,
-  toggle,     
+  toggle,
   onToggle,
   toggleIcon,
 }) {
@@ -23,12 +23,7 @@ function InputField({
         value={value}
         onChange={onChange}
       />
-      {toggle && (<ToggleIcon onClick = {onToggle}>
-        {toggleIcon}
-      </ToggleIcon>
-        )
-
-      }
+      {toggle && <ToggleIcon onClick={onToggle}>{toggleIcon}</ToggleIcon>}
     </InputContainer>
   );
 }

@@ -1,26 +1,24 @@
 import styled from "styled-components";
-import SectionTitle from "./SectionTitle"
-function UnOrderedItems({Sectiontitle,items,title}){
-    return (
-        <Wrapper>
-          <SectionTitle title={Sectiontitle} bgColor={"#A1D6E280"}/>
-            <Title>
-            <p>{title}</p>
-            </Title>
-        <Items>
-        <ul >
-            {items.map((item,index) =>
-                <ListItem key={index}>{item}</ListItem>
-            
-
-             )}
+import SectionTitle from "./SectionTitle";
+function UnOrderedItems({ Sectiontitle, items, title }) {
+  return (
+    <Wrapper>
+      <SectionTitle title={Sectiontitle} bgColor={"#A1D6E280"} />
+      <Title>
+        <p>{title}</p>
+      </Title>
+      <Items>
+        <ul>
+          {items.map((item, index) => (
+            <ListItem key={index}>{item}</ListItem>
+          ))}
         </ul>
-        </Items>
-        </Wrapper>
-    )
+      </Items>
+    </Wrapper>
+  );
 }
 
-export default UnOrderedItems
+export default UnOrderedItems;
 
 const Wrapper = styled.div`
   display: flex;
@@ -43,21 +41,20 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.div`
-padding: 0 8rem 0 5rem;
-padding-top: 3rem;
-line-height: 30px;
-width: 100%;
-font-family: Roboto Slab;
-font-size: 1.75rem;
-  
-`
+  padding: 0 8rem 0 5rem;
+  padding-top: 3rem;
+  line-height: 30px;
+  width: 100%;
+  font-family: Roboto Slab;
+  font-size: 1.75rem;
+`;
 
 const Items = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   font-family: Literata;
-font-size: 1.375remrem;
+  font-size: 1.375remrem;
   justify-content: center;
   padding: 0 8rem 0 8rem;
   @media (max-width: 1024px) {

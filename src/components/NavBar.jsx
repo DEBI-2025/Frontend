@@ -41,7 +41,11 @@ function NavBar() {
         <Li>
           <NavLinkStyled
             to="/technical-questions"
-            className={isActive("/quiz") ? "active" : ""}
+            className={
+              isActive("/technical-questions") || isActive("/hr-questions")
+                ? "active"
+                : ""
+            }
             onClick={(e) => {
               e.preventDefault();
               setModalOpen(true);

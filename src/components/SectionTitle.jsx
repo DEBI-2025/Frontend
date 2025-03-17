@@ -1,15 +1,13 @@
 import styled, { keyframes } from "styled-components";
 
-
-function SectionTitle({title, bgColor}){
-    
-    return (
-      <Wrapper>
-        <Center bgColor={bgColor}>
-            <Title>{title}</Title>
-        </Center>
-      </Wrapper>
-    )
+function SectionTitle({ title, bgColor }) {
+  return (
+    <Wrapper>
+      <Center bgColor={bgColor}>
+        <Title>{title}</Title>
+      </Center>
+    </Wrapper>
+  );
 }
 
 export default SectionTitle;
@@ -33,7 +31,6 @@ var Wrapper = styled.div`
   }
 `;
 
-
 const slideIn = keyframes`
   0% {
     transform: translateX(-100%);
@@ -55,7 +52,7 @@ const Center = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color:  ${(props) => props.bgColor };;
+  background-color: ${(props) => props.bgColor};
   padding: 0 8rem 0 5rem;
   animation: ${slideIn} 2.5s ease-in-out 0.5s forwards;
   @media (max-width: 1024px) {
@@ -92,4 +89,3 @@ const Title = styled.h1`
     margin-bottom: 1.9rem;
   }
 `;
-

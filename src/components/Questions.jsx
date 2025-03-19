@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { IoMdArrowDropdown  } from "react-icons/io";
 
 function Question({
   // key,
@@ -45,6 +46,9 @@ function Question({
           {!showAnswer && (
             <ButtonWrapper>
               <ShowAnswerButton onClick={handleShowAnswer}>
+                <IconWrapper>
+                  <IoMdArrowDropdown  />
+                </IconWrapper>
                 View Answer
               </ShowAnswerButton>
             </ButtonWrapper>
@@ -101,7 +105,10 @@ const ButtonWrapper = styled.div`
 const ShowAnswerButton = styled.button`
   background: linear-gradient(to right, #6a0dad, #af73cf, #f7c5cc 120%);
   color: white;
-  padding: 10px 20px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding: 12px 20px 12px 12px;
   border: none;
   border-radius: 50px;
   cursor: pointer;
@@ -110,4 +117,8 @@ const ShowAnswerButton = styled.button`
   &:hover {
     background-color: #4a077a;
   }
+`;
+const IconWrapper = styled.span`
+  display: flex;
+  font-size: 20px;
 `;

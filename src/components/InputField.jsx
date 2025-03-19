@@ -77,7 +77,7 @@ const Field = styled.input`
 `;
 const ToggleIcon = styled.div`
   position: absolute;
-  top: 45%;
+  top: 2rem;
   right: 1rem;
   transform: translateY(-50%);
   cursor: pointer;

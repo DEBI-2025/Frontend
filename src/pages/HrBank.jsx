@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import HrOrBehavioral from "../components/HrOrBehavioral";
+import QuestionList from "../components/QuestionList";
 
 function HrBank() {
   return (
@@ -8,6 +9,7 @@ function HrBank() {
       <hr
         style={{ width: "90%", borderColor: "#6A0DAD4D", borderWidth: "1.5px" }}
       />
+      <QuestionList endpoint={"http://localhost:8000/api/questions/"} />
     </Wrapper>
   );
 }

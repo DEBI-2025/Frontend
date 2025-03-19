@@ -20,19 +20,26 @@ function Question({
       <QuestionDiv>
         <QuestionTitle>{questionText}</QuestionTitle>
         <Metadata>
-          <span>
-            <b>Field: </b>
-            {field}
-          </span>
-          <span>
-            <b>Topic: </b>
-            {topic}
-          </span>
-          <span>
-            <b>Level: </b>
-            {level}
-          </span>
+          {field && (
+            <span>
+              <b>Field: </b>
+              {field}
+            </span>
+          )}
+          {topic && (
+            <span>
+              <b>Topic: </b>
+              {topic}
+            </span>
+          )}
+          {level && (
+            <span>
+              <b>Level: </b>
+              {level}
+            </span>
+          )}
         </Metadata>
+
         <AnswerContainer>
           <BlurredAnswer show={showAnswer}>- {answer}</BlurredAnswer>
           {!showAnswer && (

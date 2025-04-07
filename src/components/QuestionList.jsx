@@ -3,6 +3,8 @@ import Question from "./Questions.jsx";
 import styled, { keyframes } from "styled-components";
 import MultiplePages from "./MultiplePages";
 import Cookies from "js-cookie";
+import person from "../images/person.png";
+import man from "../images/man.PNG";
 
 function QuestionList({ field, topics, level, endpoint }) {
   const [questions, setQuestions] = useState([]);
@@ -14,7 +16,17 @@ function QuestionList({ field, topics, level, endpoint }) {
   const itemsPerPage = 5;
 
   useEffect(() => {
+    const shouldFetch = field && topics.length > 0 && level;
+
+    if (!shouldFetch) {
+      setQuestions([]);
+      setLoading(false);
+      return;
+    }
+
     const fetchQuestions = async () => {
+      setLoading(true);
+      setError(null);
       try {
         const token = Cookies.get("innerViews-access-token");
 
@@ -23,10 +35,9 @@ function QuestionList({ field, topics, level, endpoint }) {
         }
 
         const queryParams = new URLSearchParams();
-        if (field) queryParams.append("field", field);
-        if (topics.length > 0)
-          topics.forEach((topic) => queryParams.append("topics", topic));
-        if (level) queryParams.append("level", level);
+        queryParams.append("field", field);
+        topics.forEach((topic) => queryParams.append("topics", topic));
+        queryParams.append("level", level);
 
         const response = await fetch(`${endpoint}?${queryParams.toString()}`, {
           method: "GET",
@@ -62,10 +73,21 @@ function QuestionList({ field, topics, level, endpoint }) {
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
-  console.log("selected field", field);
-  console.log("selected topics", topics);
-  console.log("selected level", level);
 
+  // console.log("selected field", field);
+  // console.log("selected topics", topics);
+  // console.log("selected level", level);
+
+  if (!field || topics.length === 0 || !level) {
+    return (
+      <NoQuestion>
+        <ChooseImg src={man} />{" "}
+        <ChooseText>
+          Please select field, topic, and level to view questions!
+        </ChooseText>
+      </NoQuestion>
+    );
+  }
   if (loading)
     return (
       <LoadingContainer>
@@ -141,4 +163,20 @@ const LoadingCircle = styled.div`
   border-top: 8px solid transparent;
   border-radius: 50%;
   animation: ${rotate} 1s linear infinite;
+`;
+const NoQuestion = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 8rem;
+  align-items: center;
+`;
+const ChooseImg = styled.img`
+  width: 20rem;
+  opacity: 50%;
+`;
+const ChooseText = styled.p`
+  color: grey;
+  font-size: 1.1rem;
+  /* font-weight: bold; */
 `;

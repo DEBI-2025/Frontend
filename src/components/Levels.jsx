@@ -31,8 +31,8 @@ function Levels({ onLevelChange }) {
         if (Array.isArray(data)) {
           setLevels(data);
           if (data.length > 0) {
-            setSelectedLevel(data[0]);
-            onLevelChange(data[0]);
+            setSelectedLevel(data);
+            onLevelChange(data);
           }
         } else {
           throw new Error("Unexpected API response format");

@@ -1,35 +1,54 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { IoMdArrowDropdown  } from "react-icons/io";
 
 function Question({
   // key,
   questionText,
   answer,
+  field,
+  topic,
+  level,
   // isFlagged,
-  // field,
-  // topic,
-  // level,
 }) {
   const [showAnswer, setShowAnswer] = useState(false);
 
   const handleShowAnswer = () => {
     setShowAnswer(true);
   };
-
   return (
     <>
       <QuestionDiv>
         <QuestionTitle>{questionText}</QuestionTitle>
-        {/* <Metadata>
-      <span>Field: {field}</span>
-      <span>Topic: {topic}</span>
-      <span>Level: {level}</span>
-    </Metadata> */}
+        <Metadata>
+          {field && (
+            <span>
+              <b>Field: </b>
+              {field}
+            </span>
+          )}
+          {topic && (
+            <span>
+              <b>Topic: </b>
+              {topic}
+            </span>
+          )}
+          {level && (
+            <span>
+              <b>Level: </b>
+              {level}
+            </span>
+          )}
+        </Metadata>
+
         <AnswerContainer>
           <BlurredAnswer show={showAnswer}>- {answer}</BlurredAnswer>
           {!showAnswer && (
             <ButtonWrapper>
               <ShowAnswerButton onClick={handleShowAnswer}>
+                <IconWrapper>
+                  <IoMdArrowDropdown  />
+                </IconWrapper>
                 View Answer
               </ShowAnswerButton>
             </ButtonWrapper>
@@ -49,6 +68,14 @@ const QuestionDiv = styled.div`
 const QuestionTitle = styled.div`
   font-size: 1.1rem;
   font-weight: 600;
+`;
+
+const Metadata = styled.div`
+  display: flex;
+  font-size: 0.7rem;
+  padding-top: 0.3rem;
+  color: #777;
+  gap: 0.5rem;
 `;
 
 const AnswerContainer = styled.div`
@@ -78,7 +105,10 @@ const ButtonWrapper = styled.div`
 const ShowAnswerButton = styled.button`
   background: linear-gradient(to right, #6a0dad, #af73cf, #f7c5cc 120%);
   color: white;
-  padding: 10px 20px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding: 12px 20px 12px 12px;
   border: none;
   border-radius: 50px;
   cursor: pointer;
@@ -87,4 +117,8 @@ const ShowAnswerButton = styled.button`
   &:hover {
     background-color: #4a077a;
   }
+`;
+const IconWrapper = styled.span`
+  display: flex;
+  font-size: 20px;
 `;

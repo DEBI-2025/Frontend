@@ -6,13 +6,18 @@ import LeftPanel from "../components/LeftPanel";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
 import { useLogin } from "../logic/Auth/useLogin";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function LogIn() {
   const [email, setEmail] = useState("samaayman46@yahoo.com");
   const [password, setPassword] = useState("sama1234");
+  const [showPassword, setShowPassword] = useState(false);
 
   const { login, isLoading } = useLogin();
 
+  const toggleShowPassword = () => {
+    setShowPassword((prev) => !prev);
+  };
   const handleLogin = async (e) => {
     e.preventDefault();
     login({ email, password });
@@ -39,11 +44,15 @@ function LogIn() {
           <InputField
             icon={Lock}
             placeholder="Password"
-            type="password"
+            // type="password"
             value={password}
             id={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            type={showPassword ? "text" : "password"}
+            toggle={true}
+            onToggle={toggleShowPassword}
+            toggleIcon={showPassword ? <FaEye /> : <FaEyeSlash />}
           />
 
           <ForgotText>Forgot Password?</ForgotText>
@@ -115,6 +124,7 @@ const Title = styled.h1`
     font-size: 2.1rem;
   }
 `;
+
 
 const ForgotText = styled.p`
   font-size: 1.2rem;

@@ -4,10 +4,11 @@ import styled, { keyframes } from "styled-components";
 import MultiplePages from "./MultiplePages";
 import Cookies from "js-cookie";
 
-function QuestionList({ endpoint }) {
+function QuestionList({ field, topics, level, endpoint }) {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const itemsPerPage = 5;
@@ -21,7 +22,13 @@ function QuestionList({ endpoint }) {
           throw new Error("No access token found. Please log in.");
         }
 
-        const response = await fetch(endpoint, {
+        const queryParams = new URLSearchParams();
+        if (field) queryParams.append("field", field);
+        if (topics.length > 0)
+          topics.forEach((topic) => queryParams.append("topics", topic));
+        if (level) queryParams.append("level", level);
+
+        const response = await fetch(`${endpoint}?${queryParams.toString()}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -36,7 +43,6 @@ function QuestionList({ endpoint }) {
 
         if (Array.isArray(data)) {
           setQuestions(data);
-          // console.log(questions);
           setTotalPages(
             data.length ? Math.ceil(data.length / itemsPerPage) : 1
           );
@@ -51,11 +57,14 @@ function QuestionList({ endpoint }) {
     };
 
     fetchQuestions();
-  }, [endpoint]);
+  }, [endpoint, field, topics, level]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
+  console.log("selected field", field);
+  console.log("selected topics", topics);
+  console.log("selected level", level);
 
   if (loading)
     return (
@@ -63,14 +72,13 @@ function QuestionList({ endpoint }) {
         <LoadingCircle />
       </LoadingContainer>
     );
-  // console.log("questions:", questions);
 
   if (error) return <ErrorText>{error}</ErrorText>;
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentQuestions = questions.slice(startIndex, endIndex);
-  // console.log(questions.id)
+
   return (
     <Wrapper>
       {currentQuestions.length > 0 ? (
@@ -80,9 +88,9 @@ function QuestionList({ endpoint }) {
             questionText={question.text}
             answer={question.answer}
             isFlagged={question.is_flagged}
-            field={question.field}
-            topic={question.topic}
-            level={question.level}
+            field={question.field.name}
+            topic={question.topic.name}
+            level={question.level.name}
           />
         ))
       ) : (
@@ -107,7 +115,6 @@ const ErrorText = styled.p`
 `;
 
 const Wrapper = styled.div`
-  /* background-color: red; */
   width: 90%;
 `;
 

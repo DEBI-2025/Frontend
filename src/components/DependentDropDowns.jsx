@@ -3,62 +3,61 @@ import Select from "react-select";
 import styled from "styled-components";
 import Cookies from "js-cookie";
 
-function DependentDropDowns() {
+function DependentDropDowns({
+  onSelectionChange,
+  selectedField,
+  selectedTopics,
+}) {
   const [fields, setFields] = useState([]);
   const [topics, setTopics] = useState([]);
-  const [selectedField, setSelectedField] = useState(null);
-  const [selectedTopics, setSelectedTopics] = useState([]);
+
+  const fetchData = async (url, setDataCallback) => {
+    try {
+      const token = Cookies.get("innerViews-access-token");
+
+      if (!token) {
+        throw new Error("No access token found. Please log in.");
+      }
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setDataCallback(
+        data.map((item) => ({
+          value: item.id,
+          label: item.name,
+        }))
+      );
+    } catch (error) {
+      console.error(`Error fetching data from ${url}:`, error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = Cookies.get("innerViews-access-token");
-
-        if (!token) {
-          throw new Error("No access token found. Please log in.");
-        }
-
-        const response = await fetch("http://localhost:8000/api/fields/", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `JWT ${token}`,
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setFields(
-          data.map((field) => ({
-            value: field.id,
-            label: field.name,
-          }))
-        );
-      } catch (error) {
-        console.error("Error fetching fields:", error);
-      }
-    };
-
-    fetchData();
+    fetchData("http://localhost:8000/api/fields/", setFields);
   }, []);
 
-  const handleFieldChange = (selectedOption) => {
-    setSelectedField(selectedOption);
-    setSelectedTopics([]);
-
-    if (selectedOption) {
+  useEffect(() => {
+    if (selectedField) {
       const fetchTopics = async () => {
         try {
           const token = Cookies.get("innerViews-access-token");
-
           if (!token) {
             throw new Error("No access token found. Please log in.");
           }
 
           const response = await fetch(
-            `http://localhost:8000/api/topics?field=${selectedOption.value}`,
+            `http://localhost:8000/api/topics/?field=${selectedField.value}`,
             {
               method: "GET",
               headers: {
@@ -67,12 +66,19 @@ function DependentDropDowns() {
               },
             }
           );
+
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
+
           const data = await response.json();
+
+          const filteredTopics = data.filter(
+            (topic) => topic.field.id === selectedField.value
+          );
+
           setTopics(
-            data.map((topic) => ({
+            filteredTopics.map((topic) => ({
               value: topic.id,
               label: topic.name,
             }))
@@ -81,14 +87,19 @@ function DependentDropDowns() {
           console.error("Error fetching topics:", error);
         }
       };
+
       fetchTopics();
     } else {
       setTopics([]);
     }
+  }, [selectedField]);
+
+  const handleFieldChange = (field) => {
+    onSelectionChange({ field, topics: [] });
   };
 
-  const handleTopicChange = (selectedOptions) => {
-    setSelectedTopics(selectedOptions);
+  const handleTopicChange = (topics) => {
+    onSelectionChange({ field: selectedField, topics });
   };
 
   return (

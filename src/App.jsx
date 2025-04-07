@@ -6,14 +6,11 @@ import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import Quiz from "./pages/Quiz";
 import Tips from "./pages/Tips";
-import HrPage from "./pages/Hrpage";
-import QuestionBank from "./pages/QuestionBank";
+import HrBank from "./pages/HrBank";
 import RateCV from "./pages/RateCV";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
- import Activate from "./pages/auth/Activate";
-// import ResetPassword from "./pages/auth/ResetPassword";
-// import ResetPasswordConfirm from "./pages/auth/ResetPasswordConfirm";
+import Activate from "./pages/auth/Activate";
 import AppLayout from "./components/AppLayout";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -45,25 +42,25 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route path="/activate/:uid/:token"  element={<Activate />} />
+            <Route path="/activate/:uid/:token" element={<Activate />} />
 
             <Route path="tips" element={<Tips />} />
-            <Route path="hrPage" element={<HrPage />} />
             <Route
-              path="questionbank"
+              path="hr-questions"
               element={
                 <PrivateRoute>
-                  <QuestionBank />
+                  <HrBank />
                 </PrivateRoute>
               }
-            /><Route
-            path="technical-questions"
-            element={
-              <PrivateRoute>
-                <TechBank />
-              </PrivateRoute> 
-            }
-          />
+            />
+            <Route
+              path="technical-questions"
+              element={
+                <PrivateRoute>
+                  <TechBank />
+                </PrivateRoute>
+              }
+            />
             <Route path="rateyourcv" element={<RateCV />} />
           </Route>
           <Route path="login" element={<LogIn />} />

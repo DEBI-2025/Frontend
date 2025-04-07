@@ -8,7 +8,7 @@ function InputField({
   margin,
   value,
   onChange,
-  toggle,     
+  toggle,
   onToggle,
   toggleIcon,
 }) {
@@ -23,12 +23,7 @@ function InputField({
         value={value}
         onChange={onChange}
       />
-      {toggle && (<ToggleIcon onClick = {onToggle}>
-        {toggleIcon}
-      </ToggleIcon>
-        )
-
-      }
+      {toggle && <ToggleIcon onClick={onToggle}>{toggleIcon}</ToggleIcon>}
     </InputContainer>
   );
 }
@@ -82,7 +77,7 @@ const Field = styled.input`
 `;
 const ToggleIcon = styled.div`
   position: absolute;
-  top: 45%;
+  top: 2rem;
   right: 1rem;
   transform: translateY(-50%);
   cursor: pointer;

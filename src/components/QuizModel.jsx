@@ -1,11 +1,33 @@
 import styled from "styled-components";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 
 
 function QuizModel (props){
     const {isPassed , score} = props;
+    const total = score.correct + score.incorrect;
+    const percentage = total > 0 ? Math.round((score.correct / total) * 100) : 0;
     return (
-        <Card>
+    <Wrapper>
+<Card>
             <Title>
+            <ProgressWrapper>
+  <div style={{ position: "relative", width: "100%", height: "100%" }}>
+    <CircularProgressbar
+      value={percentage}
+      text=""
+      styles={buildStyles({
+        pathColor: percentage < 50 ? "#dc2626" : "#16a34a",
+        trailColor: "#f3e8ff",
+        pathTransitionDuration: 0.5,
+      })}
+    />
+    <PercentageText>{percentage}%</PercentageText>
+  </div>
+</ProgressWrapper>
+
+
+
+
             {isPassed
           ? "Congratulations, You Passed! ✅"
           : "Try Again, You Failed The Quiz! 😔"}
@@ -15,15 +37,28 @@ function QuizModel (props){
         <Incorrect>❌ {score.incorrect} Incorrect</Incorrect>
       </Score>
 
-      <Icon>{isPassed ? "🎉" : "❌"}</Icon>
-
+      
       <Button>Review Answers</Button>
         </Card>
+    </Wrapper>
+        
     )
 }
 export default QuizModel;
+const Wrapper = styled.div`
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3); /* dark transparent overlay */
+  backdrop-filter: blur(6px);     /* blur effect */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+`;
+
 const Card = styled.div`
-max-width:400px;
+max-width:600px;
+width:90%;
 padding: 24px;
   border-radius: 20px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -31,9 +66,10 @@ padding: 24px;
   text-align: center;
 `
 const Title = styled.p`
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 500;
   margin-bottom: 12px;
+   margin-top: 24px;
 `;
 const Score = styled.p`
   font-size: 1rem;
@@ -67,4 +103,18 @@ const Button = styled.button`
   &:hover {
     background-color: #c084fc;
   }
+`;
+const ProgressWrapper = styled.div`
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+`;
+const PercentageText = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  font-weight: bold;
+  color: #6b21a8;
 `;

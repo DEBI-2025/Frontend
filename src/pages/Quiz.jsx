@@ -66,7 +66,7 @@ function Quiz() {
   const handleSubmit = async() => {
     try {
       if (currentQuestion === totalQuestions) {
-        // This is the array you want to send
+        // This is the array you want to send replace with the answer 
         const answerPayload = [
           
             {
@@ -93,8 +93,8 @@ function Quiz() {
                 "label": "B"
             }
         ];
-  
-        const result = await submitQuiz(answerPayload); // sending only the question-labels array
+  //api function for submit 
+        const result = await submitQuiz(answerPayload); 
         console.log("Quiz Result", result);
         console.log("Success");
         setShowModal(true);

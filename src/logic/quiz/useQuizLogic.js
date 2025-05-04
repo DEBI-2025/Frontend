@@ -12,7 +12,6 @@ export default function useQuizLogic(){
         try{
             const result = await quizScore(answers);
             setScoreData(result);
-            console.log("nodara")
             return result;
         }catch(err){
             setError('Failed to submit quiz.');

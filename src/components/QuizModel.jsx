@@ -51,35 +51,40 @@ function QuizModel ({data}){
 }
 export default QuizModel;
 const Wrapper = styled.div`
+  backdrop-filter: blur(8px);
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.3); /* dark transparent overlay */
-  backdrop-filter: blur(6px);     /* blur effect */
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+  overflow: hidden;
 `;
 const Card = styled.div`
-  max-width: 600px;
-  width: 90%;
-  padding: 24px;
-  border-radius: 20px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(135deg, #ffffff, #f3e8ff);
+background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
   text-align: center;
+  width: 700px;
+  @media (max-width: 1024px) {
+    width: 80%;
+  }
 
-  /* Media query for smaller devices */
   @media (max-width: 768px) {
-    max-width: 90%;
-    padding: 16px;
+    width: 90%;
+    padding: 20px;
   }
 
   @media (max-width: 480px) {
-    max-width: 100%;
-    padding: 12px;
+    width: 85%;
+    padding: 16px;
+    border-radius: 12px;
   }
 `;
+
 
 const Title = styled.div`
   font-size: 1rem;

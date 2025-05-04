@@ -58,9 +58,7 @@ const QuestionText = styled.p`
 font-weight: 600;
   margin-bottom: 8px;
 `;
-const StatusText =  styled.p.attrs(() => ({
-  // prevent 'correct' from going to DOM
-}))`
+const StatusText =  styled.p`
 color:${(props)=> (props.correct ? "#16a34a" : "#dc2626")};
  margin-bottom: 4px;
 `;
@@ -72,7 +70,7 @@ const Wrapper = styled.div`
   height: 89.6%;
   overflow-y: auto;
   margin-right: 0.2rem;
-
+//scorlling
   &::-webkit-scrollbar {
     width: 8px;
   }

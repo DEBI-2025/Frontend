@@ -8,7 +8,7 @@ export  const  quizScore = async(answers)=>{
                 'Content-Type': 'application/json',
             },
         });
-        console.log("api is calling", response.data);
+        //the return data
         return response.data ;
    
     }catch(error){

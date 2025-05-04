@@ -17,6 +17,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import PrivateRoute from "./components/PrivateRoute";
 import TechBank from "./pages/TechBank";
+import ReviewAnswers from "./pages/ReviewAnswer";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,6 +41,14 @@ function App() {
                 <PrivateRoute>
                   <Quiz />
                 </PrivateRoute>
+              }
+            />
+             <Route
+              path="/review-answers"
+              element={
+                <ReviewAnswers/>
+
+            
               }
             />
             <Route path="/activate/:uid/:token" element={<Activate />} />

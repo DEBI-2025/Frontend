@@ -1,4 +1,4 @@
-// components/ProgressSection.jsx
+
 import styled from "styled-components";
 import TimerComponent from "./timer";
 

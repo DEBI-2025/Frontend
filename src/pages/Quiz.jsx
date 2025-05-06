@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import ProgressSection from "../components/ProgressBar";
+import QuizNavigation from "../components/quizNavigation";
+import QuizCard from "../components/QuizCard";
 
 const Quiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(1);
@@ -47,33 +48,19 @@ const Quiz = () => {
   return (
     <Container>
      <ProgressSection progressPercentage={progressPercentage} timeLeft={timeLeft} />
-
-
-      <Content>
-        <Card>
-          <Question>
-            {currentQuestion}- What is React.js?
-          </Question>
-          <ResponseArea
-            placeholder="Enter Your Response Here"
-            value={response}
-            onChange={(e) => setResponse(e.target.value)}
-          />
-          <SubmitButton onClick={handleSubmit}>Submit Answer</SubmitButton>
-        </Card>
-      </Content>
-
-      <NavigationContainer>
-        <NavArrow onClick={goToPrevious} disabled={currentQuestion === 1}>
-          <ChevronLeft size={24} color="#8B5CF6" />
-        </NavArrow>
-        <QuestionCounter>
-          Question {currentQuestion} ({totalQuestions - currentQuestion + 1} remaining)
-        </QuestionCounter>
-        <NavArrow onClick={goToNext} disabled={currentQuestion === totalQuestions}>
-          <ChevronRight size={24} color="#8B5CF6" />
-        </NavArrow>
-      </NavigationContainer>
+      <QuizCard
+    questionText={`${currentQuestion} - What is React.js?`}
+    choices={["A library for UI", "A backend framework", "A database", "An operating system"]}
+    selectedChoice={response}
+    onChoiceChange={setResponse}
+    onSubmit={handleSubmit}
+  />
+      <QuizNavigation
+  currentQuestion={currentQuestion}
+  totalQuestions={totalQuestions}
+  onPrevious={goToPrevious}
+  onNext={goToNext}
+/>
     </Container>
   );
 };
@@ -85,87 +72,9 @@ const Container = styled.div`
   font-family: Arial, sans-serif;
   background-color: #f9fafb;
 `;
-const Content = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 20px;
-`;
 
-const Card = styled.div`
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  max-width: 450px;
-  width: 100%;
-  padding: 30px;
-`;
 
-const Question = styled.h2`
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 24px;
-  color: #333;
-  text-align: center;
-`;
 
-const ResponseArea = styled.textarea`
-  width: 100%;
-  padding: 15px;
-  border: 1px solid #8b5cf6;
-  border-radius: 8px;
-  margin-bottom: 24px;
-  min-height: 100px;
-  font-family: inherit;
-  resize: none;
-  box-sizing: border-box;
-  outline: none;
-`;
-
-const SubmitButton = styled.button`
-  width: 180px;
-  padding: 12px;
-  background: linear-gradient(to right, #8b5cf6, #ec4899);
-  color: white;
-  border: none;
-  border-radius: 9999px;
-  font-weight: 500;
-  cursor: pointer;
-  font-size: 16px;
-  display: block;
-  margin: 0 auto;
-`;
-
-const NavigationContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  max-width: 600px;
-  margin: 0 auto 100px auto;
-  width: 100%;
-`;
-
-const NavArrow = styled.button`
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
-`;
-
-const QuestionCounter = styled.div`
-  color: #6b7280;
-  font-size: 14px;
-`;
 
 
 export default Quiz;

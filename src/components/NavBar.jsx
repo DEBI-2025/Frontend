@@ -56,6 +56,14 @@ function NavBar() {
         </Li>
         <Li>
           <NavLinkStyled
+            to="/quiz"
+            className={isActive("/quiz") ? "active" : ""}
+          >
+            Quiz
+          </NavLinkStyled>
+        </Li>
+        <Li>
+          <NavLinkStyled
             to="/tips"
             className={isActive("/tips") ? "active" : ""}
           >

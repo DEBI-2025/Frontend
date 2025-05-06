@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import person from "../images/person.png";
 import man from "../images/man.PNG";
 
-function QuestionList({ field, topics, level, endpoint }) {
+function QuestionList({ field, topics, level, endpoint  ,category }) {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,7 +16,7 @@ function QuestionList({ field, topics, level, endpoint }) {
   const itemsPerPage = 5;
 
   useEffect(() => {
-    const shouldFetch = field && topics.length > 0 && level;
+    const shouldFetch = category ||(field && topics.length > 0 && level);
 
     if (!shouldFetch) {
       setQuestions([]);
@@ -35,10 +35,13 @@ function QuestionList({ field, topics, level, endpoint }) {
         }
 
         const queryParams = new URLSearchParams();
+        if(category ){
+          queryParams.append("category", category)
+        }else{
         queryParams.append("field", field);
         topics.forEach((topic) => queryParams.append("topics", topic));
         queryParams.append("level", level);
-
+        }
         const response = await fetch(`${endpoint}?${queryParams.toString()}`, {
           method: "GET",
           headers: {
@@ -68,7 +71,7 @@ function QuestionList({ field, topics, level, endpoint }) {
     };
 
     fetchQuestions();
-  }, [endpoint, field, topics, level]);
+  }, [endpoint, field, topics, level,category]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -78,12 +81,12 @@ function QuestionList({ field, topics, level, endpoint }) {
   // console.log("selected topics", topics);
   // console.log("selected level", level);
 
-  if (!field || topics.length === 0 || !level) {
+  if (!category &&(!field || topics.length === 0 || !level)) {
     return (
       <NoQuestion>
         <ChooseImg src={man} />{" "}
         <ChooseText>
-          Please select field, topic, and level to view questions!
+        {!category ? "Select an HR or Behavioral field to explore the available questions" : "Please select field, topic, and level to view questions!"}
         </ChooseText>
       </NoQuestion>
     );
@@ -110,9 +113,10 @@ function QuestionList({ field, topics, level, endpoint }) {
             questionText={question.text}
             answer={question.answer}
             isFlagged={question.is_flagged}
-            field={question.field.name}
-            topic={question.topic.name}
-            level={question.level.name}
+           {...(question.field && { field: question.field.name })}
+           {...(question.topic && {topic:question.topic.name})}
+           {...(question.level && {level:question.level.name})}
+            
           />
         ))
       ) : (

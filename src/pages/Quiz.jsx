@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Clock } from "lucide-react";
+import { ChevronLeft, ChevronRight, Clock, Timer } from "lucide-react";
 import QuizModel from "../components/QuizModel";
 import useQuizLogic from "../logic/quiz/useQuizLogic";
-import { quizScore } from "../API/AfterSubmit";
-
+import TimerComponent  from "../components/timer";
 
 
 function Quiz() {
@@ -39,14 +38,7 @@ function Quiz() {
     return () => clearInterval(timer);
   }, []);
 
-  // Format time as MM:SS
-  const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
-      .toString()
-      .padStart(2, "0")}`;
-  };
+  
 
   // Handle navigation
   const goToPrevious = () => {
@@ -122,10 +114,7 @@ function Quiz() {
               }}
             />
           </div>
-          <div style={styles.timer}>
-            <span>{formatTime(timeLeft)}</span>
-            <Clock size={16} color="white" style={styles.timerIcon} />
-          </div>
+          <TimerComponent  timeLeft={timeLeft}/>
         </div>
       </div>
 
@@ -215,15 +204,7 @@ const styles = {
     backgroundColor: "#5D3FD3",
     borderRadius: "9999px",
   },
-  timer: {
-    color: "white",
-    display: "flex",
-    alignItems: "center",
-    fontSize: "14px",
-  },
-  timerIcon: {
-    marginLeft: "5px",
-  },
+  
   content: {
     flex: 1,
     display: "flex",

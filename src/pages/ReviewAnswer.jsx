@@ -1,76 +1,92 @@
 import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import styled from "styled-components";
- 
-export default function ReviewAnswers(){
+
+export default function ReviewAnswers() {
   const location = useLocation();
   const quizData = location.state?.quizData || [];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const currentQuestion = quizData[currentIndex];
+
+  const goNext = () => {
+    if (currentIndex < quizData.length - 1) {
+      setCurrentIndex((prev) => prev + 1);
+    }
+  };
+
+  const goPrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex((prev) => prev - 1);
+    }
+  };
+
   return (
     <Wrapper>
-<Container>
-      <Title>
-        Quiz Review
-      </Title>
-      {quizData.length === 0 ?(
-        <p>No quiz data available </p>
-      ):(
-        quizData.map((item ,index)=>(
-          <QuestionCard key ={index}>
-            <QuestionText>
-              Q{index+1}:{item.text}
-            </QuestionText>
-            <StatusText correct= {item.staus === "correct"}>
-              Your answer was :{item.staus}
-            </StatusText>
-            
-            <AnswerDetail><strong>Correct Answer:</strong> {item.correct_label} - {item.correct_choice_text}</AnswerDetail>
-            <AnswerDetail><strong>Reason:</strong> {item.answer_reason}</AnswerDetail>
+      <Header>
+        <ProgressBarContainer>
+          <ProgressBarFill style={{ width: `${((currentIndex + 1) / quizData.length) * 100}%` }} />
+        </ProgressBarContainer>
+        <TimerText>24:02</TimerText>
+      </Header>
+
+      <Container>
+        <Title>Quiz Review</Title>
+
+        {quizData.length === 0 ? (
+          <p>No quiz data available</p>
+        ) : (
+          <>
+            <QuestionCard>
+              <QuestionText>
+                Q{currentIndex + 1}: {currentQuestion.text}
+              </QuestionText>
+
+              <StatusText correct={currentQuestion.staus === "correct"}>
+                {currentQuestion.staus === "correct" ? (
+                  <>
+                    <FaCheckCircle /> Correct Answer
+                  </>
+                ) : (
+                  <>
+                    <FaTimesCircle /> Incorrect Answer
+                  </>
+                )}
+              </StatusText>
+
+              <AnswerDetail>
+                <strong>Correct Answer:</strong> {currentQuestion.correct_label} - {currentQuestion.correct_choice_text}
+              </AnswerDetail>
+              <AnswerDetail>
+                <strong>Reason:</strong> {currentQuestion.answer_reason}
+              </AnswerDetail>
             </QuestionCard>
-        ))
-      )
-      }
-    </Container>
-    
+
+            <Navigation>
+              <NavButton onClick={goPrev} disabled={currentIndex === 0}>
+                Previous
+              </NavButton>
+              <PageIndicator>
+                {currentIndex + 1} / {quizData.length}
+              </PageIndicator>
+              <NavButton onClick={goNext} disabled={currentIndex === quizData.length - 1}>
+                Next
+              </NavButton>
+            </Navigation>
+          </>
+        )}
+      </Container>
     </Wrapper>
-    
-  )
-  
+  );
 }
 
-const Container = styled.div`
-padding:24px;
-max-width:800px;
-margin:0 auto;
-overflow-y: auto;
-`;
-const Title = styled.h1`
-font-size:2rem;
-font-weight:bold;
-margin-bottom:24px`
-;
-const QuestionCard = styled.div`
-margin-bottom: 24px;
-  padding: 16px;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  background-color: #f9fafb;
-`;
-const QuestionText = styled.p`
-font-weight: 600;
-  margin-bottom: 8px;
-`;
-const StatusText =  styled.p`
-color:${(props)=> (props.correct ? "#16a34a" : "#dc2626")};
- margin-bottom: 4px;
-`;
-
-const AnswerDetail = styled.p`
-  margin: 4px 0;
-`;
+// Styled Components
 const Wrapper = styled.div`
   height: 89.6%;
   overflow-y: auto;
   margin-right: 0.2rem;
-//scorlling
+
   &::-webkit-scrollbar {
     width: 8px;
   }
@@ -79,23 +95,116 @@ const Wrapper = styled.div`
     background: #8888887d;
     border-radius: 5px;
     margin-bottom: 0.3rem;
-    /* width: 5px; */
   }
 
   &::-webkit-scrollbar-thumb {
     background: linear-gradient(to bottom, #6a0dad, #af73cf, #f7c5cc);
     border-radius: 10px;
-    /* width: 8px;  */
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    /* width: 10px; */
     cursor: pointer;
     background: linear-gradient(to bottom, #4a077a, #805599, #c0949a);
   }
 `;
 
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: linear-gradient(to right, #7b2cbf, #e0aaff);
+`;
 
+const ProgressBarContainer = styled.div`
+  height: 6px;
+  background-color: #ddd;
+  flex: 1;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-right: 10px;
+`;
 
+const ProgressBarFill = styled.div`
+  height: 100%;
+  background-color: #c084fc;
+  transition: width 0.3s ease-in-out;
+`;
 
+const TimerText = styled.div`
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+`;
 
+const Container = styled.div`
+  padding: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+`;
+
+const Title = styled.h1`
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 24px;
+`;
+
+const QuestionCard = styled.div`
+  margin-bottom: 24px;
+  padding: 16px;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`;
+
+const QuestionText = styled.p`
+  font-weight: 600;
+  margin-bottom: 12px;
+`;
+
+const StatusText = styled.div`
+  font-size: 16px;
+  font-weight: 500;
+  margin: 8px 0;
+  color: ${(props) => (props.correct ? "#28a745" : "#dc3545")};
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const AnswerDetail = styled.p`
+  margin-top: 8px;
+  font-size: 15px;
+`;
+
+const Navigation = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+`;
+
+const NavButton = styled.button`
+  background: #6a0dad;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    background: #571c9b;
+  }
+`;
+
+const PageIndicator = styled.div`
+  font-weight: 500;
+  font-size: 14px;
+`;

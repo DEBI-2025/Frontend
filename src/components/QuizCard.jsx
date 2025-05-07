@@ -6,7 +6,7 @@ const QuizCard = ({ questionText, choices = [], selectedChoice, onChoiceChange, 
   };
 
   return (
-    <Content>
+    
       <Card>
         <Question>{questionText}</Question>
         {choices.map((choice, index) => (
@@ -21,25 +21,19 @@ const QuizCard = ({ questionText, choices = [], selectedChoice, onChoiceChange, 
         <SubmitButton onClick={onSubmit}
         disabled={!selectedChoice}>Submit Answer</SubmitButton>
       </Card>
-    </Content>
+    
   );
 };
 
-const Content = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 20px;
-`;
 
 const Card = styled.div`
   background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  max-width: 450px;
-  width: 100%;
+  box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
   padding: 30px;
+  width: 500px;
+  margin: -20px auto 0 auto;
+  position: relative;
+  z-index: 1;
 `;
 
 const Question = styled.h2`

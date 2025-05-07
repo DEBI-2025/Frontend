@@ -3,105 +3,20 @@ import styled from "styled-components";
 import ProgressSection from "../components/ProgressBar";
 import QuizNavigation from "../components/quizNavigation";
 import QuizCard from "../components/QuizCard";
+import QuizModel from "../components/QuizModel";
+import useQuizLogic from "../logic/quiz/useQuizLogic";
 
 const Quiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(1);
   const [totalQuestions, setTotalQuestions] = useState(25);
   const [response, setResponse] = useState("");
   const [timeLeft, setTimeLeft] = useState(1800);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prevTime) => {
-        if (prevTime <= 0) {
-          clearInterval(timer);
-          return 0;
-        }
-        return prevTime - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const goToPrevious = () => {
-    if (currentQuestion > 1) {
-      setCurrentQuestion(currentQuestion - 1);
-      setResponse("");
-    }
-  };
-
-  const goToNext = () => {
-    if (currentQuestion < totalQuestions) {
-      setCurrentQuestion(currentQuestion + 1);
-      setResponse("");
-    }
-  };
-
-  const handleSubmit = () => {
-    console.log("Submitted answer:", response);
-    goToNext();
-  };
-
-  const progressPercentage = (currentQuestion / totalQuestions) * 100;
-
-  return (
-    <Container>
-     <ProgressSection progressPercentage={progressPercentage} timeLeft={timeLeft} />
-      <QuizCard
-    questionText={`${currentQuestion} - What is React.js?`}
-    choices={["A library for UI", "A backend framework", "A database", "An operating system"]}
-    selectedChoice={response}
-    onChoiceChange={setResponse}
-    onSubmit={handleSubmit}
-  />
-      <QuizNavigation
-  currentQuestion={currentQuestion}
-  totalQuestions={totalQuestions}
-  onPrevious={goToPrevious}
-  onNext={goToNext}
-/>
-    </Container>
-  );
-};
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: 100%;
-  font-family: Arial, sans-serif;
-  background-color: #f9fafb;
-`;
-
-
-
-
-import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Clock, Timer } from "lucide-react";
-import QuizModel from "../components/QuizModel";
-import useQuizLogic from "../logic/quiz/useQuizLogic";
-import TimerComponent  from "../components/timer";
-
-
-function Quiz() {
-  // Quiz state
-  const [currentQuestion, setCurrentQuestion] = useState(1);
-  const [totalQuestions, setTotalQuestions] = useState(25);
-  const [response, setResponse] = useState("");
   const [showModal, setShowModal] = useState(true);
-
-
-
-  // Timer state - starting with 30 minutes (1800 seconds)
-  const [timeLeft, setTimeLeft] = useState(1800);
-
   //custom hooks for quiz
   const { scoreData, submitQuiz, loading, error } = useQuizLogic();
   
-  
 
   useEffect(() => {
-    // Timer countdown effect
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => {
         if (prevTime <= 0) {
@@ -112,13 +27,9 @@ function Quiz() {
       });
     }, 1000);
 
-    // Cleanup timer on unmount
     return () => clearInterval(timer);
   }, []);
 
-  
-
-  // Handle navigation
   const goToPrevious = () => {
     if (currentQuestion > 1) {
       setCurrentQuestion(currentQuestion - 1);
@@ -176,182 +87,50 @@ function Quiz() {
       console.error("Error submitting quiz:", err);
     }
   };
-  // Calculate progress percentage
+  
+
+
   const progressPercentage = (currentQuestion / totalQuestions) * 100;
 
   return (
-    <div style={styles.container}>
-      {/* Progress bar and timer */}
-      <div style={styles.progressSection}>
-        <div style={styles.progressContainer}>
-          <div style={styles.progressBar}>
-            <div
-              style={{
-                ...styles.progressFill,
-                width: `${progressPercentage}%`,
-              }}
-            />
-          </div>
-          <TimerComponent  timeLeft={timeLeft}/>
-        </div>
-      </div>
-
-      {/* Main content */}
-      <div style={styles.content}>
-        <div style={styles.card}>
-          <h2 style={styles.question}>{currentQuestion}- What is React.js?</h2>
-
-          <textarea
-            style={styles.textarea}
-            placeholder="Enter Your Response Here"
-            value={response}
-            onChange={(e) => setResponse(e.target.value)}
-          />
-
-          <button style={styles.submitButton} onClick={handleSubmit}>
-            Submit Answer
-          </button>
-        </div>
-      </div>
-
-      {/* Navigation arrows */}
-      <div style={styles.navigationContainer}>
-        <button
-          style={styles.navArrow}
-          onClick={goToPrevious}
-          disabled={currentQuestion === 1}
-        >
-          <ChevronLeft size={24} color="#8B5CF6" />
-        </button>
-
-        <div style={styles.questionCounter}>
-          Question {currentQuestion} ({totalQuestions - currentQuestion + 1}{" "}
-          remaining)
-        </div>
-
-        <button
-          style={styles.navArrow}
-          onClick={goToNext}
-          disabled={currentQuestion === totalQuestions}
-        >
-          <ChevronRight size={24} color="#8B5CF6" />
-        </button>
-      </div>
-      {showModal && scoreData && (
-        <QuizModel data={scoreData} /> // Show the modal when quiz is finished
-     
-)}
-
-        
-    </div>
+    <Container>
+     <ProgressSection progressPercentage={progressPercentage} timeLeft={timeLeft} />
+     <Fill/>
+      <QuizCard
+    questionText={`${currentQuestion} - What is React.js?`}
+    choices={["A library for UI", "A backend framework", "A database", "An operating system"]}
+    selectedChoice={response}
+    onChoiceChange={setResponse}
+    onSubmit={handleSubmit}
+  />
+      <QuizNavigation
+  currentQuestion={currentQuestion}
+  totalQuestions={totalQuestions}
+  onPrevious={goToPrevious}
+  onNext={goToNext}
+/>
+{showModal && scoreData && (
+        <QuizModel data={scoreData} /> )}// Show the modal when quiz is finished
+    </Container>
   );
-}
-
-const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    height: "100vh",
-    width: "100%",
-    fontFamily: "Arial, sans-serif",
-    backgroundColor: "#f9fafb",
-  },
-  progressSection: {
-    background: "linear-gradient(to right, #8B5CF6, #EC4899)",
-    padding: "20px",
-    display: "flex",
-    justifyContent: "center",
-  },
-  progressContainer: {
-    width: "100%",
-    maxWidth: "600px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  progressBar: {
-    height: "8px",
-    backgroundColor: "white",
-    borderRadius: "9999px",
-    width: "100%",
-    maxWidth: "500px",
-    marginRight: "20px",
-  },
-  progressFill: {
-    height: "100%",
-    backgroundColor: "#5D3FD3",
-    borderRadius: "9999px",
-  },
-  
-  content: {
-    flex: 1,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "0 20px",
-  },
-  card: {
-    backgroundColor: "white",
-    borderRadius: "8px",
-    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.08)",
-    maxWidth: "450px",
-    width: "100%",
-    padding: "30px",
-  },
-  question: {
-    fontSize: "20px",
-    fontWeight: "bold",
-    marginBottom: "24px",
-    color: "#333",
-    textAlign: "center",
-  },
-  textarea: {
-    width: "100%",
-    padding: "15px",
-    border: "1px solid #8B5CF6",
-    borderRadius: "8px",
-    marginBottom: "24px",
-    minHeight: "100px",
-    fontFamily: "inherit",
-    resize: "none",
-    boxSizing: "border-box",
-    outline: "none",
-  },
-  submitButton: {
-    width: "180px",
-    padding: "12px",
-    background: "linear-gradient(to right, #8B5CF6, #EC4899)",
-    color: "white",
-    border: "none",
-    borderRadius: "9999px",
-    fontWeight: "500",
-    cursor: "pointer",
-    fontSize: "16px",
-    display: "block",
-    margin: "0 auto",
-  },
-  navigationContainer: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "20px",
-    maxWidth: "600px",
-    margin: "0 auto 100px auto",
-    width: "100%",
-  },
-  navArrow: {
-    background: "none",
-    border: "none",
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "8px",
-  },
-  questionCounter: {
-    color: "#6B7280",
-    fontSize: "14px",
-  },
 };
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  background-color: #f9fafb;
+`;
+const Fill = styled.div`
+background: linear-gradient(to right, #8b5cf6, #ec4899);
+  padding: 20px;
+  display: flex;
+  height:1rem;
+  `;
+
+
+
+
 
 export default Quiz;

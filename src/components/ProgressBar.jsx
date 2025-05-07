@@ -22,9 +22,11 @@ const SectionWrapper = styled.div`
   padding: 20px;
   display: flex;
   justify-content: center;
+  
 `;
 
 const ProgressContainer = styled.div`
+margin-top:1rem;
   width: 100%;
   max-width: 600px;
   display: flex;

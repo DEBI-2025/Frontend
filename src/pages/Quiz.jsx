@@ -47,20 +47,28 @@ const Quiz = () => {
 
   return (
     <Container>
-     <ProgressSection progressPercentage={progressPercentage} timeLeft={timeLeft} />
+      <ProgressSection
+        progressPercentage={progressPercentage}
+        timeLeft={timeLeft}
+      />
       <QuizCard
-    questionText={`${currentQuestion} - What is React.js?`}
-    choices={["A library for UI", "A backend framework", "A database", "An operating system"]}
-    selectedChoice={response}
-    onChoiceChange={setResponse}
-    onSubmit={handleSubmit}
-  />
+        questionText={`${currentQuestion} - What is React.js?`}
+        choices={[
+          "A library for UI",
+          "A backend framework",
+          "A database",
+          "An operating system",
+        ]}
+        selectedChoice={response}
+        onChoiceChange={setResponse}
+        onSubmit={handleSubmit}
+      />
       <QuizNavigation
-  currentQuestion={currentQuestion}
-  totalQuestions={totalQuestions}
-  onPrevious={goToPrevious}
-  onNext={goToNext}
-/>
+        currentQuestion={currentQuestion}
+        totalQuestions={totalQuestions}
+        onPrevious={goToPrevious}
+        onNext={goToNext}
+      />
     </Container>
   );
 };
@@ -72,9 +80,5 @@ const Container = styled.div`
   font-family: Arial, sans-serif;
   background-color: #f9fafb;
 `;
-
-
-
-
 
 export default Quiz;

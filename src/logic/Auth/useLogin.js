@@ -10,6 +10,10 @@ export const useLogin = () => {
   const { mutate: login, isPending: isLoading } = useMutation({
     mutationFn: ({ email, password }) => loginApi(email, password),
     onSuccess: (data) => {
+      if (data.success === false){
+        toast.error(data.message);
+        return;
+      }
       Cookies.set("innerViews-refresh-token", data.refresh);
       Cookies.set("innerViews-access-token", data.access);
     //   queryClient.invalidateQueries({ queryKey: ["isAuthenticated"] });

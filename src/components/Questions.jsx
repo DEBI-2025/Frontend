@@ -43,15 +43,21 @@ function Question({
         </Metadata>
 
         <AnswerContainer>
-           {showAnswer && thought && (
-   
+          
+                    
+          <BlurredAnswer show={showAnswer}>
+            
+             { thought && (
      <ThoughtWrapper>
+      <ThoughtTitle>Thought Process : </ThoughtTitle>
     <AnswerReason>{thought}</AnswerReason>
     <ThoughtTitle>Sample Example : </ThoughtTitle>
   </ThoughtWrapper>
       
   )}
-          <BlurredAnswer show={showAnswer}>- {answer}</BlurredAnswer>
+            - {answer}</BlurredAnswer>
+          
+  
           {!showAnswer && (
             <ButtonWrapper>
               <ShowAnswerButton onClick={handleShowAnswer}>
@@ -91,12 +97,16 @@ const Metadata = styled.div`
 const AnswerContainer = styled.div`
   position: relative;
   min-height: 50px;
+  padding-left: 1rem
 `;
 const TextContent = styled.p`
   font-size: 0.9rem;
   color: #333;
   line-height: 1.5;
- font-family:  'Tajawal',sans-serif;
+  margin:0;
+
+
+ 
 `;
 const BlurredAnswer = styled(TextContent)`
   
@@ -106,7 +116,7 @@ const BlurredAnswer = styled(TextContent)`
   transition: filter 0.3s ease-in-out;
   position: relative;
   z-index: 1;
-   padding-left: 1rem;
+   
   
 `;
 
@@ -139,12 +149,16 @@ const IconWrapper = styled.span`
   font-size: 20px;
 `;
 const ThoughtWrapper = styled.div`
-   padding-left: 1rem;
+   padding-left: 0.5rem;
+   
   
 `;
 
 const ThoughtTitle = styled.h4`
-  color: #6a0dad;
+padding:0.4rem;
+color: #6a0dad;
+margin: 0;
+
 `;
 
 const AnswerReason = styled(TextContent)``;

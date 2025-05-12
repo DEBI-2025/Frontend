@@ -3,7 +3,7 @@ import axios from "axios";
 const API_URL = "http://127.0.0.1:8000/auth/jwt/create/";
 
 export const login = async (email, password) => {
-  // console.log(email,password)
+  //console.log(email,password)
   try {
     const { data } = await axios.post(
       API_URL,

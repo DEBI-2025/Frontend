@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import person from "../images/person.png";
 import man from "../images/man.PNG";
 
-function QuestionList({ field, topics, level, endpoint  ,category }) {
+function QuestionList({ field, topics, level, endpoint  ,category}) {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -116,7 +116,7 @@ function QuestionList({ field, topics, level, endpoint  ,category }) {
            {...(question.field && { field: question.field.name })}
            {...(question.topic && {topic:question.topic.name})}
            {...(question.level && {level:question.level.name})}
-            
+            thought={question.thought_process}
           />
         ))
       ) : (

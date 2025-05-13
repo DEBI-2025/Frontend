@@ -8,6 +8,7 @@ import Quiz from "./pages/Quiz";
 import Tips from "./pages/Tips";
 import HrBank from "./pages/HrBank";
 import RateCV from "./pages/RateCV";
+import ProfilePage from "./pages/profilePage"
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Activate from "./pages/auth/Activate";
@@ -65,6 +66,8 @@ function App() {
           </Route>
           <Route path="login" element={<LogIn />} />
           <Route path="signup" element={<SignUp />} />
+
+          <Route path="profile" element={<ProfilePage/>} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

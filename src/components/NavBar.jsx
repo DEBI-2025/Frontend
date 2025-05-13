@@ -100,7 +100,7 @@ const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1.5rem;
+  gap: 15rem;
   height: 2.8rem;
   padding: 0.7rem;
   border-radius: 0 0 1.7rem 1.7rem;
@@ -109,15 +109,15 @@ const Nav = styled.nav`
     linear-gradient(to right, #6a0dad, #af73cf, #f7c5cc) border-box;
 
   @media (max-width: 1024px) {
-    gap: 0.1rem;
+    gap: 10rem;
   }
   @media (max-width: 768px) {
-    gap: 0.7rem;
+    gap: 7rem;
     padding: 0.5rem 0.9rem;
   }
   @media (max-width: 550px) {
-  flex-wrap: nowrap;
-    gap: 0rem;
+  gap: 0.5rem;
+  
   }
 `;
 
@@ -129,6 +129,7 @@ const MenuIcon = styled.div`
     font-size: 1.9rem;
     cursor: pointer;
     color: #6a0dad;
+    margin-left:7rem;
   }
 `;
 
@@ -239,10 +240,14 @@ const ProfileIconDesktop = styled(FaUserCircle)`
   &:hover {
     transform: scale(1.1);
   }
+    @media (max-width: 600px) {
+    color: #6a0dad;
+  }
 
   @media (max-width: 550px) {
     display: none;
   }
+  
 `;
 
 const ProfileIconMobile = styled(FaEllipsisV)`
@@ -256,10 +261,11 @@ const ProfileIconMobile = styled(FaEllipsisV)`
   &:hover {
     transform: scale(1.1);
   }
-
+ 
   @media (max-width: 550px) {
     display: inline-block;
   }
+     
 `;
 
 
@@ -284,19 +290,6 @@ const DropdownMenu = styled.div`
     font-size: 1.1rem;
   }
 
-  /* Smaller tablets & larger mobile screens */
-  @media (max-width: 768px) {
-    width: 5.5rem;
-  
-    font-size: 1.05rem;
-  }
-
-  /* Hide on very small screens */
-  @media (max-width: 550px) {
-    width: 5.5rem;
-  
-    font-size: 1.05rem;
-  }
 `;
 
 const DropdownItem = styled.div`

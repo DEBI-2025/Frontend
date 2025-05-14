@@ -182,5 +182,5 @@ const ChooseImg = styled.img`
 const ChooseText = styled.p`
   color: grey;
   font-size: 1.1rem;
-  /* font-weight: bold; */
+  
 `;

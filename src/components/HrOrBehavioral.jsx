@@ -1,11 +1,15 @@
 import styled from "styled-components";
 
-function HrOrBehavioral() {
+function HrOrBehavioral({selectedCategory  ,onCategoryChange }) {
   return (
     <Wrapper>
       <Ul>
-        <Li>HR</Li>
-        <Li>Behavioral</Li>
+        <Li
+         $isSelected ={selectedCategory === "HR"}
+        onClick={()=> onCategoryChange("HR")}>HR</Li>
+        <Li
+        $isSelected ={selectedCategory === "Behavioral"}
+        onClick={()=> onCategoryChange("Behavioral")}>Behavioral</Li>
       </Ul>
     </Wrapper>
   );

@@ -9,6 +9,7 @@ function Question({
   field,
   topic,
   level,
+  thought
   // isFlagged,
 }) {
   const [showAnswer, setShowAnswer] = useState(false);
@@ -42,7 +43,21 @@ function Question({
         </Metadata>
 
         <AnswerContainer>
-          <BlurredAnswer show={showAnswer}>- {answer}</BlurredAnswer>
+          
+                    
+          <BlurredAnswer show={showAnswer}>
+            
+             { thought && (
+     <ThoughtWrapper>
+      <ThoughtTitle>Thought Process : </ThoughtTitle>
+    <AnswerReason>{thought}</AnswerReason>
+    <ThoughtTitle>Sample Example : </ThoughtTitle>
+  </ThoughtWrapper>
+      
+  )}
+            - {answer}</BlurredAnswer>
+          
+  
           {!showAnswer && (
             <ButtonWrapper>
               <ShowAnswerButton onClick={handleShowAnswer}>
@@ -54,6 +69,7 @@ function Question({
             </ButtonWrapper>
           )}
         </AnswerContainer>
+        
       </QuestionDiv>
       <hr style={{ borderColor: "#6A0DAD4D", borderWidth: "1.5px" }} />
     </>
@@ -81,17 +97,27 @@ const Metadata = styled.div`
 const AnswerContainer = styled.div`
   position: relative;
   min-height: 50px;
+  padding-left: 1rem
 `;
-
-const BlurredAnswer = styled.p`
-  font-size: 1.02rem;
+const TextContent = styled.p`
+  font-size: 0.9rem;
   color: #333;
-  max-width: 90%;
   line-height: 1.5;
+  margin:0;
+
+
+ 
+`;
+const BlurredAnswer = styled(TextContent)`
+  
+  max-width: 90%;
+  
   filter: ${({ show }) => (show ? "none" : "blur(4px)")};
   transition: filter 0.3s ease-in-out;
   position: relative;
   z-index: 1;
+   
+  
 `;
 
 const ButtonWrapper = styled.div`
@@ -122,3 +148,19 @@ const IconWrapper = styled.span`
   display: flex;
   font-size: 20px;
 `;
+const ThoughtWrapper = styled.div`
+   padding-left: 0.5rem;
+   
+  
+`;
+
+const ThoughtTitle = styled.h4`
+padding:0.4rem;
+color: #6a0dad;
+margin: 0;
+
+`;
+
+const AnswerReason = styled(TextContent)``;
+
+

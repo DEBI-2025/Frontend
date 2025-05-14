@@ -79,7 +79,9 @@ function NavBar() {
           <ProfileIconMobile onClick={() => setDropdownOpen(!dropdownOpen)} />
           {dropdownOpen && (
             <DropdownMenu>
-              <DropdownItem onClick={()=> navigate("/profile")}>Profile</DropdownItem>
+              <DropdownItem onClick={()=> {
+                setDropdownOpen(false); 
+                navigate("/profile")}}>Profile</DropdownItem>
               <DropdownItem onClick={handleLogout}>Logout</DropdownItem>
             </DropdownMenu>
           )}

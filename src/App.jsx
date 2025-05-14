@@ -33,7 +33,10 @@ function App() {
       <ReactQueryDevtools initialIsOpen={false} />
       <BrowserRouter>
         <Routes>
+         
           <Route element={<AppLayout />}>
+
+           <Route path="profile" element={<ProfilePage/>} />
             <Route path="/" element={<Home />} />
             <Route
               path="quiz"
@@ -67,7 +70,7 @@ function App() {
           <Route path="login" element={<LogIn />} />
           <Route path="signup" element={<SignUp />} />
 
-          <Route path="profile" element={<ProfilePage/>} />
+          
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

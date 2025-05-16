@@ -1,6 +1,8 @@
 import  { useEffect, useState } from "react";
 import styled from "styled-components";
+import { FaUser, FaEnvelope, FaPhone, FaBirthdayCake, FaStar } from "react-icons/fa";
 import { getUser } from "../API/profileFetch";
+import userImg from '../images/user.png';
 
 const ProfilePage = () => {
 
@@ -19,56 +21,42 @@ const ProfilePage = () => {
     fetchUser();
   },[]);
   return (
-    <Container>
-      <Card>
-        <Title>User Profile</Title>
-        {user ? (
-          <>
-            <ProfileImageWrapper>
-              <ProfileImage src="https://via.placeholder.com/150" alt="User Profile" />
-            </ProfileImageWrapper>
-            <Details>
-              <Row>
-                <Label>Full Name:</Label>
-                <Value>{user.first_name} {user.last_name}</Value>
-              </Row>
-              <Row>
-                <Label>Email:</Label>
-                <Value>{user.email}</Value>
-              </Row>
-              <Row>
-                <Label>Phone:</Label>
-                <Value>{user.phone}</Value>
-              </Row>
-              <Row>
-                <Label>Date of Birth:</Label>
-                <Value>{user.date_of_birth}</Value>
-              </Row>
-              <Row>
-                <Label>User Level:</Label>
-                <Value>{user.level}</Value>
-              </Row>
-            </Details>
-          </>
-        ) : (
-          <Loading>Loading...</Loading>
-        )}
-      </Card>
-    </Container>
+    <FullPageContainer >
+<Wrapper>
+      <TopBar>
+        <h1>My Profile</h1>
+      </TopBar>
+
+      <Content>
+        <ProfileCard>
+          <Avatar src={userImg} alt="User" />
+          <h2>{user?.first_name} {user?.last_name}</h2>
+          <span>{user?.email}</span>
+        </ProfileCard>
+
+        <Details>
+          <SectionTitle>Personal Information</SectionTitle>
+          <Grid>
+            <Item><Label>First Name</Label><Value>{user?.first_name || "-"}</Value></Item>
+            <Item><Label>Last Name</Label><Value>{user?.last_name || "-"}</Value></Item>
+            <Item><Label>Phone</Label><Value>{user?.phone || "-"}</Value></Item>
+            <Item><Label>Date of Birth</Label><Value>{user?.date_of_birth || "-"}</Value></Item>
+            <Item><Label>Level</Label><Value>{user?.level || "-"}</Value></Item>
+          </Grid>
+        </Details>
+      </Content>
+    </Wrapper>
+    </FullPageContainer>
+    
+  
   );
 };
 
 export default ProfilePage;
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
- // align-items: center;        
-  background-color: #f0f4f8;
-  min-height: 100vh;
-  padding: 2rem;
-  overflow-y: auto;
+const FullPageContainer = styled.div`
   height: 100vh;
+  overflow-y: auto;
+
   &::-webkit-scrollbar {
     width: 8px;
   }
@@ -77,82 +65,132 @@ const Container = styled.div`
     background: #8888887d;
     border-radius: 5px;
     margin-bottom: 0.3rem;
-    /* width: 5px; */
   }
 
   &::-webkit-scrollbar-thumb {
     background: linear-gradient(to bottom, #6a0dad, #af73cf, #f7c5cc);
     border-radius: 10px;
-    /* width: 8px;  */
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    /* width: 10px; */
     cursor: pointer;
     background: linear-gradient(to bottom, #4a077a, #805599, #c0949a);
   }
-
-  
+`;
+const Wrapper = styled.div`
+  font-family: "Inter", sans-serif;
+  background: #f9fafb;
+  min-height: 100vh;
+  padding: 2rem;
+width:100%;
+  @media (max-width: 500px) {
+    padding: 1rem;
+  }
 `;
 
-const Card = styled.div`
-  padding: 3rem;
-  background-color: #ffffff;
-  border-radius: 1.5rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  height:auto;
-  max-width: 600px;
+
+const TopBar = styled.div`
+  margin-bottom: 2rem;
+  h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #1f2937;
+  }
+`;
+const Content = styled.div`
+  display: flex;
+  gap: 2rem;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+`;
+
+
+const ProfileCard = styled.div`
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
   text-align: center;
-  
+  width: 100%;
+  max-width: 300px;
+
+  h2 {
+    font-size: 1.25rem;
+    margin: 1rem 0 0.5rem;
+  }
+
+  span {
+    color: #6b7280;
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 90%;
+    margin: 0 auto;
+  }
 `;
 
-const Title = styled.h1`
-  font-size: 2.2rem;
-  color: #333;
-  margin-bottom: 2rem;
-`;
 
-const ProfileImageWrapper = styled.div`
-  margin-bottom: 2rem;
-`;
-
-const ProfileImage = styled.img`
+const Avatar = styled.img`
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
-  width: 150px;
-  height: 150px;
   object-fit: cover;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 `;
 
 const Details = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  flex: 1;
+  min-width: 280px;
+
+  @media (max-width: 768px) {
+    width: 90%;
+    margin: 0 auto;
+  }
 `;
 
-const Row = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+const SectionTitle = styled.h3`
   font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  color: #374151;
+`;
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+`;
+
+const Item = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const Label = styled.span`
-  font-weight: 600;
-  color: #6a0dad;
+  font-size: 0.85rem;
+  color: #6b7280;
 `;
 
 const Value = styled.span`
-  color: #333;
+  font-size: 1rem;
+  color: #111827;
   font-weight: 500;
-`;
-
-const Loading = styled.p`
-  text-align: center;
-  font-size: 1.5rem;
-  color: #999;
+  margin-top: 0.25rem;
 `;

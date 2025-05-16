@@ -63,12 +63,12 @@ export default ProfilePage;
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+ // align-items: center;        
   background-color: #f0f4f8;
+  min-height: 100vh;
+  padding: 2rem;
   overflow-y: auto;
-  margin-right: 0.2rem;
-
+  height: 100vh;
   &::-webkit-scrollbar {
     width: 8px;
   }
@@ -92,6 +92,7 @@ const Container = styled.div`
     background: linear-gradient(to bottom, #4a077a, #805599, #c0949a);
   }
 
+  
 `;
 
 const Card = styled.div`
@@ -99,10 +100,11 @@ const Card = styled.div`
   background-color: #ffffff;
   border-radius: 1.5rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  min-width: 320px;
   width: 100%;
+  height:auto;
   max-width: 600px;
   text-align: center;
+  
 `;
 
 const Title = styled.h1`

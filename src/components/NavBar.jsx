@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
+import { FaBars, FaTimes, FaUserCircle ,FaEllipsisV } from "react-icons/fa";
 import IconAndTitle from "./IconAndTitle";
 import { isAuthenticated } from "../utils/isAuth";
 import QuestModal from "./QuestModal";
@@ -75,10 +75,13 @@ function NavBar() {
         <SignButton onClick={() => navigate("/login")}>Sign In</SignButton>
       ) : (
         <ProfileWrapper>
-          <ProfileIcon onClick={() => setDropdownOpen(!dropdownOpen)} />
-
+          <ProfileIconDesktop onClick={() => setDropdownOpen(!dropdownOpen)} />
+          <ProfileIconMobile onClick={() => setDropdownOpen(!dropdownOpen)} />
           {dropdownOpen && (
             <DropdownMenu>
+              <DropdownItem onClick={()=> {
+                setDropdownOpen(false); 
+                navigate("/profile")}}>Profile</DropdownItem>
               <DropdownItem onClick={handleLogout}>Logout</DropdownItem>
             </DropdownMenu>
           )}
@@ -97,7 +100,7 @@ export default NavBar;
 
 const Nav = styled.nav`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   gap: 15rem;
   height: 2.8rem;
@@ -115,6 +118,8 @@ const Nav = styled.nav`
     padding: 0.5rem 0.9rem;
   }
   @media (max-width: 550px) {
+  gap: 0.5rem;
+  
   }
 `;
 
@@ -126,6 +131,7 @@ const MenuIcon = styled.div`
     font-size: 1.9rem;
     cursor: pointer;
     color: #6a0dad;
+    margin-left:7rem;
   }
 `;
 
@@ -227,7 +233,7 @@ const ProfileWrapper = styled.div`
   cursor: pointer;
 `;
 
-const ProfileIcon = styled(FaUserCircle)`
+const ProfileIconDesktop = styled(FaUserCircle)`
   font-size: 2rem;
   color: #6a0dad;
   cursor: pointer;
@@ -236,11 +242,34 @@ const ProfileIcon = styled(FaUserCircle)`
   &:hover {
     transform: scale(1.1);
   }
-
-  @media (max-width: 768px) {
-    font-size: 1.5rem;
+    @media (max-width: 600px) {
+    color: #6a0dad;
   }
+
+  @media (max-width: 550px) {
+    display: none;
+  }
+  
 `;
+
+const ProfileIconMobile = styled(FaEllipsisV)`
+  font-size: 1.6rem;
+  color: #6a0dad;
+  cursor: pointer;
+  transition: transform 0.2s;
+  display: none;
+  padding:1rem;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+ 
+  @media (max-width: 550px) {
+    display: inline-block;
+  }
+     
+`;
+
 
 const DropdownMenu = styled.div`
   position: absolute;
@@ -259,21 +288,10 @@ const DropdownMenu = styled.div`
 
   @media (max-width: 1024px) {
     width: 6.5rem;
-    height: 2.3rem;
+    
     font-size: 1.1rem;
   }
 
-  /* Smaller tablets & larger mobile screens */
-  @media (max-width: 768px) {
-    width: 5.5rem;
-    height: 2.2rem;
-    font-size: 1.05rem;
-  }
-
-  /* Hide on very small screens */
-  @media (max-width: 550px) {
-    display: none;
-  }
 `;
 
 const DropdownItem = styled.div`

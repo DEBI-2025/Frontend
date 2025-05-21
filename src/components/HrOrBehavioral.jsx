@@ -28,6 +28,12 @@ const Ul = styled.ul`
   padding: 0;
   margin: 0.5rem 0;
   list-style: none;
+  @media (max-width: 600px) {
+    width: 100%;
+    font-size: 1.1rem;
+    justify-content: center;
+    gap: 2rem; 
+  }
 `;
 
 const Li = styled.li`

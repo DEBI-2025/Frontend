@@ -2,6 +2,7 @@ import  { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FaUser, FaEnvelope, FaPhone, FaBirthdayCake, FaStar } from "react-icons/fa";
 import { getUser } from "../API/profileFetch";
+import { getQuizResult } from "../API/quizResult"; 
 import userImg from '../images/user.png';
 
 const ProfilePage = () => {
@@ -9,7 +10,7 @@ const ProfilePage = () => {
   const [user ,setUser]=useState(null);
 
   useEffect (()=>{
-    const fetchUser = async ()=>{
+    const fetchData = async ()=>{
       const response = await getUser();
       if (response.success){
         setUser(response.user);
@@ -17,8 +18,15 @@ const ProfilePage = () => {
       }else{
         console.error(response.message);
       }
+      const quizResponse = await getQuizResult();
+      if (quizResponse.success){
+        
+      console.log("Quiz Result:", quizResponse.user);
+      }else{
+         console.error("Quiz fetch error:", quizResponse.message);
+      }
     };
-    fetchUser();
+    fetchData();
   },[]);
   return (
     <FullPageContainer >
@@ -30,18 +38,32 @@ const ProfilePage = () => {
       <Content>
         <ProfileCard>
           <Avatar src={userImg} alt="User" />
-          <h2>{user?.first_name} {user?.last_name}</h2>
-          <span>{user?.email}</span>
+          <h2>
+          
+          {user?.first_name} {user?.last_name}</h2>
+          <span>
+            <ResponsiveIcon><FaEnvelope /></ResponsiveIcon>
+            {user?.email}</span>
         </ProfileCard>
 
         <Details>
           <SectionTitle>Personal Information</SectionTitle>
           <Grid>
-            <Item><Label>First Name</Label><Value>{user?.first_name || "-"}</Value></Item>
-            <Item><Label>Last Name</Label><Value>{user?.last_name || "-"}</Value></Item>
-            <Item><Label>Phone</Label><Value>{user?.phone || "-"}</Value></Item>
-            <Item><Label>Date of Birth</Label><Value>{user?.date_of_birth || "-"}</Value></Item>
-            <Item><Label>Level</Label><Value>{user?.level || "-"}</Value></Item>
+            <Item><Label>First Name</Label><Value>
+            <ResponsiveIcon><FaUser /></ResponsiveIcon>
+            {user?.first_name || "-"}</Value></Item>
+            <Item><Label>Last Name</Label><Value>
+            {/* <ResponsiveIcon><FaPhone /></ResponsiveIcon> */}
+            {user?.last_name || "-"}</Value></Item>
+            <Item><Label>Phone</Label><Value>
+            <ResponsiveIcon><FaPhone /></ResponsiveIcon>
+            {user?.phone || "-"}</Value></Item>
+            <Item><Label>Date of Birth</Label><Value>
+            <ResponsiveIcon><FaBirthdayCake /></ResponsiveIcon>
+            {user?.date_of_birth || "-"}</Value></Item>
+            <Item><Label>Level</Label><Value>
+            <ResponsiveIcon><FaStar /></ResponsiveIcon>
+            {user?.level || "-"}</Value></Item>
           </Grid>
         </Details>
       </Content>
@@ -76,13 +98,16 @@ const FullPageContainer = styled.div`
     cursor: pointer;
     background: linear-gradient(to bottom, #4a077a, #805599, #c0949a);
   }
+
+@media (max-width: 500px) {
+    height:auto
+  }
 `;
 const Wrapper = styled.div`
   font-family: "Inter", sans-serif;
   background: #f9fafb;
   min-height: 100vh;
   padding: 2rem;
-width:100%;
   @media (max-width: 500px) {
     padding: 1rem;
   }
@@ -94,7 +119,12 @@ const TopBar = styled.div`
   h1 {
     font-size: 1.8rem;
     font-weight: 600;
-    color: #1f2937;
+     background: linear-gradient(to bottom, #6a0dad, #af73cf, #f7c5cc); 
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  background-clip: text;
+  color: transparent;
   }
 `;
 const Content = styled.div`
@@ -118,7 +148,7 @@ const ProfileCard = styled.div`
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.05);
   text-align: center;
-  width: 100%;
+  width: 90%;
   max-width: 300px;
 
   h2 {
@@ -132,7 +162,7 @@ const ProfileCard = styled.div`
   }
 
   @media (max-width: 768px) {
-    max-width: 90%;
+    max-width: 70%;
     margin: 0 auto;
   }
 `;
@@ -151,15 +181,20 @@ const Details = styled.div`
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.05);
   flex: 1;
-  min-width: 280px;
-
   @media (max-width: 768px) {
-    width: 90%;
     margin: 0 auto;
+     width: 70%;
   }
 `;
 
-
+const  ResponsiveIcon = styled.span`
+display :none;
+margin-right:0.5rem;
+color: #6a0dad;
+@media (max-width: 768px) {
+    display: inline-block;
+  }
+`
 const SectionTitle = styled.h3`
   font-size: 1.2rem;
   font-weight: 500;

@@ -11,7 +11,10 @@ const QuizResultPage = ({ results, onRetake }) => {
   ).length;
   const wrongAnswers = totalQuestions - correctAnswers;
   const scorePercentage = parseFloat(Score.replace("%", ""));
+ profile_feature
   const isPassed =  result === "Passed"; // Typo in API
+  const isPassed = result === "Passed"; // Typo in API
+  main
 
   const roundedScore = scorePercentage.toFixed(2) + "%";
 

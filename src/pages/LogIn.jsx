@@ -9,8 +9,8 @@ import { useLogin } from "../logic/Auth/useLogin";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function LogIn() {
-  const [email, setEmail] = useState("samaayman46@yahoo.com");
-  const [password, setPassword] = useState("sama1234");
+  const [email, setEmail] = useState(" ");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const { login, isLoading } = useLogin();

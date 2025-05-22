@@ -1,15 +1,21 @@
 import styled from "styled-components";
 import HrOrBehavioral from "../components/HrOrBehavioral";
 import QuestionList from "../components/QuestionList";
+import { useState } from "react";
 
 function HrBank() {
+
+  const [category ,setCategory]= useState("");
   return (
     <Wrapper>
-      <HrOrBehavioral />
+      <HrOrBehavioral 
+      selectedCategory={category}
+      onCategoryChange={setCategory}/>
       <hr
         style={{ width: "90%", borderColor: "#6A0DAD4D", borderWidth: "1.5px" }}
       />
-      <QuestionList endpoint={"http://localhost:8000/api/questions/"} />
+      <QuestionList endpoint={"http://127.0.0.1:8000/api/hr/questions/"}
+        category={category} />
     </Wrapper>
   );
 }
